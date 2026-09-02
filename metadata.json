@@ -1,0 +1,6 @@
+{
+  "name": "PowerMax Battery Solutions",
+  "description": "Premium showcase website for automotive, two-wheeler, inverter, solar, and industrial battery solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
