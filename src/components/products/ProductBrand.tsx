@@ -20,7 +20,7 @@ export const ProductBrand: React.FC<ProductBrandProps> = ({ product, className =
           </span>
           <span className="text-[10px] text-[#22c55e] font-bold -mt-2">®</span>
         </div>
-        <span className="text-[9px] font-black tracking-widest text-[#22c55e]/90 uppercase -mt-0.5">
+        <span className="text-[9px] font-black tracking-widest text-[#22c55e] uppercase -mt-0.5">
           LASTS LONG, REALLY LONG.
         </span>
       </div>
@@ -47,14 +47,14 @@ export const ProductBrand: React.FC<ProductBrandProps> = ({ product, className =
       <div id={`brand-${product.id}`} className={`flex flex-col ${className}`}>
         <div className="flex items-center gap-2">
           {/* Bosch iconic double-circle armature symbol */}
-          <div className="w-5 h-5 rounded-full border-2 border-white flex items-center justify-center">
-            <div className="w-2.5 h-2.5 rounded-full border border-white" />
+          <div className="w-4 h-4 rounded-full border-2 border-white flex items-center justify-center">
+            <div className="w-1.5 h-1.5 rounded-full border border-white" />
           </div>
           <span className="text-xl sm:text-2xl font-black tracking-tight text-[#ef4444] font-sans">
             BOSCH
           </span>
         </div>
-        <span className="text-[9px] font-medium tracking-wide text-neutral-400 -mt-0.5 pl-7">
+        <span className="text-[9px] font-medium tracking-wide text-neutral-400 -mt-0.5 pl-6">
           Invented for life
         </span>
       </div>
@@ -64,10 +64,10 @@ export const ProductBrand: React.FC<ProductBrandProps> = ({ product, className =
   if (brandUpper.includes('LUMINOUS')) {
     return (
       <div id={`brand-${product.id}`} className={`flex flex-col ${className}`}>
-        <span className="text-xl sm:text-2xl font-black tracking-tight text-[#0284c7] font-sans">
+        <span className="text-xl sm:text-2xl font-black tracking-tight text-[#00e5ff] font-sans">
           LUMINOUS
         </span>
-        <span className="text-[9px] font-semibold tracking-wider text-neutral-300 uppercase -mt-0.5">
+        <span className="text-[9px] font-bold tracking-widest text-neutral-300 uppercase -mt-0.5">
           KHUSHIYON KA GHAR
         </span>
       </div>
@@ -92,6 +92,19 @@ export const ProductBrand: React.FC<ProductBrandProps> = ({ product, className =
     );
   }
 
+  if (brandUpper.includes('OKAYA')) {
+    return (
+      <div id={`brand-${product.id}`} className={`flex flex-col ${className}`}>
+        <span className="text-xl sm:text-2xl font-black tracking-wider text-[#10b981] font-sans">
+          OKAYA
+        </span>
+        <span className="text-[9px] font-bold tracking-widest text-neutral-400 uppercase -mt-0.5">
+          POWER TO EMPOWER
+        </span>
+      </div>
+    );
+  }
+
   if (brandUpper.includes('LIVGUARD')) {
     return (
       <div id={`brand-${product.id}`} className={`flex flex-col ${className}`}>
@@ -100,19 +113,6 @@ export const ProductBrand: React.FC<ProductBrandProps> = ({ product, className =
         </span>
         <span className="text-[9px] font-bold tracking-widest text-neutral-400 uppercase -mt-0.5">
           ENERGY UNLIMITED
-        </span>
-      </div>
-    );
-  }
-
-  if (brandUpper.includes('OKAYA')) {
-    return (
-      <div id={`brand-${product.id}`} className={`flex flex-col ${className}`}>
-        <span className="text-xl sm:text-2xl font-black tracking-wider text-[#14b8a6] font-sans">
-          OKAYA
-        </span>
-        <span className="text-[9px] font-semibold tracking-widest text-neutral-400 uppercase -mt-0.5">
-          POWER TO EMPOWER
         </span>
       </div>
     );

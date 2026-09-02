@@ -26,10 +26,10 @@ export const CompareButton: React.FC<CompareButtonProps> = ({
       type="button"
       onClick={handleClick}
       aria-label={isCompared ? 'Remove from compare' : 'Add to compare'}
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer ${
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all duration-200 cursor-pointer ${
         isCompared
           ? 'bg-amber-500/20 border border-amber-500/50 text-amber-300'
-          : 'bg-neutral-900/60 hover:bg-neutral-800 border border-neutral-800 text-neutral-400 hover:text-neutral-200'
+          : 'bg-[#0e131d]/90 hover:bg-[#151c2a] border border-[#1e2638] text-neutral-400 hover:text-neutral-200'
       } ${className}`}
     >
       {isCompared ? (
@@ -39,7 +39,7 @@ export const CompareButton: React.FC<CompareButtonProps> = ({
         </>
       ) : (
         <>
-          <SlidersHorizontal className="w-3 h-3" />
+          <SlidersHorizontal className="w-3 h-3 text-neutral-400" />
           <span>Compare</span>
         </>
       )}

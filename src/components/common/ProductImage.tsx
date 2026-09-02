@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { BatteryCharging } from 'lucide-react';
 import { Product } from '../../types';
+import { resolveProductImage, normalizeImagePath } from '../../utils/productImages';
 
 export interface ProductImageProps {
   /** The full product object */
@@ -192,26 +193,28 @@ export const ProductImage: React.FC<ProductImageProps> = ({
   showStage = true,
 }) => {
   const [imageError, setImageError] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(true);
+  const imgRef = React.useRef<HTMLImageElement>(null);
 
-  // Derive active image source
-  let resolvedSrc = src || '';
-  if (product) {
-    if (product.images && product.images.length > selectedImageIndex && product.images[selectedImageIndex]) {
-      resolvedSrc = product.images[selectedImageIndex];
-    } else {
-      resolvedSrc = product.image || '';
-    }
+  // Derive active image source from central resolution system
+  const imageResolution = resolveProductImage(product, src);
+  let resolvedSrc = imageResolution.primaryImage;
+  if (imageResolution.galleryImages && imageResolution.galleryImages.length > selectedImageIndex && imageResolution.galleryImages[selectedImageIndex]) {
+    resolvedSrc = imageResolution.galleryImages[selectedImageIndex];
+  } else if (!resolvedSrc && src) {
+    resolvedSrc = normalizeImagePath(src);
   }
 
-  // Reset loading & error states when source changes
+  // Reset error state and check if image is already completed in cache
   useEffect(() => {
     setImageError(false);
-    setImageLoaded(false);
+    if (imgRef.current?.complete && imgRef.current.naturalWidth > 0) {
+      setImageLoaded(true);
+    }
   }, [resolvedSrc]);
 
-  const brandName = product?.brand || customBrand || 'Battery';
-  const modelName = product?.name || customModel || product?.modelCode || customModelCode || '';
+  const brandName = product?.brand || customBrand || imageResolution.verifiedRecord?.brand || 'Battery';
+  const modelName = product?.name || customModel || product?.modelCode || customModelCode || imageResolution.verifiedRecord?.name || '';
 
   const altText =
     alt ||
@@ -226,7 +229,8 @@ export const ProductImage: React.FC<ProductImageProps> = ({
   }[aspectRatio];
 
   const lighting = getBrandLighting(brandName, product?.colorTheme?.primaryColor);
-  const showImage = Boolean(resolvedSrc) && !imageError;
+  const isRealImage = imageResolution.hasRealImage;
+  const showImage = Boolean(resolvedSrc) && !imageError && isRealImage;
 
   return (
     <div
@@ -237,53 +241,52 @@ export const ProductImage: React.FC<ProductImageProps> = ({
       {showStage && (
         <>
           {/* 1. Deep Studio Stage Dark Background Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0e131d]/60 via-[#080b12]/80 to-[#04060a] pointer-events-none rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0e1420]/70 via-[#070a10]/90 to-[#020407] pointer-events-none rounded-2xl" />
 
           {/* 2. Top Softbox Overhead Studio Light Accent */}
           <div className="absolute top-0 inset-x-0 h-1/2 bg-[radial-gradient(ellipse_at_50%_0%,rgba(255,255,255,0.08)_0%,transparent_75%)] pointer-events-none" />
 
-          {/* 3. Intense Brand Ambient Back-Glow (behind the battery) */}
+          {/* 3. Intense Brand Ambient Back-Glow (halo behind the battery) */}
           <div
-            className="absolute inset-0 pointer-events-none transition-opacity duration-700 opacity-70 group-hover:opacity-100 blur-2xl"
+            className="absolute inset-0 pointer-events-none transition-opacity duration-700 opacity-80 group-hover:opacity-100 blur-2xl"
             style={{
               background: lighting.backGlow,
             }}
           />
 
           {/* 4. VIBRANT SHOWROOM FLOOR UNDERGLOW & NEON REFLECTION (under the battery) */}
-          {/* 4a. Sharp High-Intensity Core Neon Beam */}
+          {/* 4a. Wide Ambient Floor Reflection Spill */}
           <div
-            className="absolute inset-x-6 bottom-2 h-4 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity duration-500 blur-[3px]"
+            className="absolute inset-x-2 bottom-1 h-12 pointer-events-none opacity-75 group-hover:opacity-100 transition-opacity duration-500 blur-lg"
             style={{
-              background: `radial-gradient(ellipse 85% 100% at 50% 50%, #ffffff 0%, ${lighting.coreNeon} 40%, ${lighting.secondaryNeon} 75%, transparent 95%)`,
+              background: `radial-gradient(ellipse 85% 100% at 50% 50%, ${lighting.floorRgba} 0%, transparent 80%)`,
             }}
           />
 
-          {/* 4b. Medium Floor Glow Flare */}
+          {/* 4b. Bright Core Neon Ellipse Flare */}
           <div
-            className="absolute inset-x-2 bottom-1 h-9 pointer-events-none opacity-85 group-hover:opacity-100 transition-opacity duration-500 blur-[8px]"
+            className="absolute inset-x-8 bottom-2.5 h-6 pointer-events-none opacity-90 group-hover:opacity-100 transition-opacity duration-500 blur-[4px]"
             style={{
-              background: `radial-gradient(ellipse 90% 100% at 50% 60%, ${lighting.floorRgba} 0%, transparent 75%)`,
+              background: `radial-gradient(ellipse 80% 100% at 50% 50%, ${lighting.coreNeon} 0%, ${lighting.secondaryNeon} 55%, transparent 85%)`,
             }}
           />
 
-          {/* 4c. Wide Ambient Floor Reflection Spill */}
+          {/* 4c. Ultra-Bright Center Specular Core */}
           <div
-            className="absolute -inset-x-4 bottom-0 h-16 pointer-events-none opacity-60 group-hover:opacity-85 transition-opacity duration-500 blur-xl"
+            className="absolute inset-x-16 bottom-3 h-2.5 pointer-events-none opacity-95 group-hover:opacity-100 transition-opacity duration-500 blur-[1.5px]"
             style={{
-              background: `radial-gradient(ellipse 95% 100% at 50% 80%, ${lighting.floorRgba} 0%, transparent 75%)`,
+              background: `radial-gradient(ellipse 65% 100% at 50% 50%, #ffffff 0%, ${lighting.coreNeon} 65%, transparent 90%)`,
             }}
           />
 
-          {/* 4d. Dark Contact Occlusion Shadow directly beneath battery base (creates grounding) */}
-          <div className="absolute inset-x-12 bottom-3.5 h-3 bg-[radial-gradient(ellipse_at_50%_50%,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.6)_60%,transparent_85%)] blur-[1.5px] pointer-events-none" />
+          {/* 4d. Dark Contact Occlusion Shadow directly beneath battery base */}
+          <div className="absolute inset-x-12 bottom-3.5 h-3 bg-[radial-gradient(ellipse_at_50%_50%,rgba(0,0,0,0.95)_0%,rgba(0,0,0,0.65)_60%,transparent_85%)] blur-[1.5px] pointer-events-none" />
         </>
       )}
 
       {/* 5. Cleanly Isolated Battery Product Image */}
       {showImage ? (
         <div className="relative z-10 w-full h-full flex items-center justify-center">
-          {/* Subtle skeleton pulse while loading */}
           {!imageLoaded && (
             <div className="absolute inset-4 rounded-xl bg-neutral-900/30 animate-pulse flex items-center justify-center pointer-events-none">
               <BatteryCharging className="w-6 h-6 text-neutral-700 animate-pulse" />
@@ -291,31 +294,56 @@ export const ProductImage: React.FC<ProductImageProps> = ({
           )}
 
           <motion.img
+            ref={imgRef}
             id={product ? `img-photo-${product.id}` : undefined}
             src={resolvedSrc}
             alt={altText}
             loading={priority ? 'eager' : 'lazy'}
             decoding="async"
             onLoad={() => setImageLoaded(true)}
-            onError={() => setImageError(true)}
+            onError={() => {
+              if ((import.meta as any).env?.DEV) {
+                console.warn(`[ProductImage] Failed to load battery image: "${resolvedSrc}" for ${brandName} ${modelName}`);
+              }
+              setImageError(true);
+            }}
             initial={{ opacity: 0, scale: 0.96 }}
             animate={{
               opacity: imageLoaded ? 1 : 0,
               scale: imageLoaded ? 1 : 0.96,
             }}
             transition={{ duration: 0.35, ease: 'easeOut' }}
-            className={`w-full h-full max-h-[92%] object-contain filter drop-shadow-[0_16px_28px_rgba(0,0,0,0.85)] drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-[1.04] ${imageClassName}`}
+            className={`w-full h-full max-h-[92%] object-contain filter drop-shadow-[0_16px_28px_rgba(0,0,0,0.85)] drop-shadow-[0_4px_10px_rgba(0,0,0,0.5)] saturate-[1.08] contrast-[1.05] transition-transform duration-500 group-hover:scale-[1.05] ${imageClassName}`}
           />
         </div>
       ) : (
-        /* Fallback if image path is unavailable */
+        /* Real Product Image Coming Soon Stage */
         <div
-          id={product ? `fallback-no-image-${product.id}` : undefined}
-          className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center p-4 bg-neutral-900/40 rounded-xl border border-neutral-800/60"
+          id={product ? `coming-soon-image-${product.id}` : undefined}
+          className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center p-4 bg-[#0a0f18]/60 rounded-xl border border-[#1d273a]/70 backdrop-blur-xs shadow-inner"
         >
-          <BatteryCharging className="w-8 h-8 text-neutral-600 mb-2" />
-          <span className="text-xs font-mono text-neutral-400 font-semibold">{brandName}</span>
-          <span className="text-[11px] font-mono text-neutral-500 truncate max-w-[180px]">{modelName}</span>
+          <div
+            className="w-12 h-12 rounded-2xl flex items-center justify-center mb-2.5 shadow-lg border border-white/5"
+            style={{
+              backgroundColor: lighting.coreNeon ? `${lighting.coreNeon}20` : 'rgba(255,255,255,0.05)',
+              borderColor: lighting.coreNeon ? `${lighting.coreNeon}40` : 'rgba(255,255,255,0.1)',
+            }}
+          >
+            <BatteryCharging
+              className="w-6 h-6 animate-pulse"
+              style={{ color: lighting.coreNeon || '#9ca3af' }}
+            />
+          </div>
+          <span className="text-[11px] font-mono uppercase font-black tracking-widest text-white mb-0.5">
+            {brandName}
+          </span>
+          <span className="text-[10px] font-mono text-neutral-400 truncate max-w-[190px] mb-2 font-medium">
+            {modelName}
+          </span>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#111724] border border-[#222e44] text-[9px] font-mono font-bold text-amber-400/90 tracking-wide uppercase shadow-xs">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping" />
+            <span>REAL IMAGE COMING SOON</span>
+          </div>
         </div>
       )}
     </div>

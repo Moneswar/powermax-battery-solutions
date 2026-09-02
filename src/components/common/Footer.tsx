@@ -31,12 +31,14 @@ export const Footer: React.FC<FooterProps> = ({
   const productCategories: { name: string; cat: BatteryCategory }[] = [
     { name: 'Car & SUV Batteries', cat: 'Automotive' },
     { name: 'Motorcycle & Scooter Batteries', cat: 'Two-Wheeler' },
+    { name: 'Three-Wheeler Batteries', cat: 'Three-Wheeler' },
     { name: 'Inverter & Tall Tubular Batteries', cat: 'Inverter & Home UPS' },
     { name: 'Commercial Truck & Bus Batteries', cat: 'Commercial' },
     { name: 'Solar Storage Deep Cycle', cat: 'Solar Storage' },
     { name: 'Tractor & Farm Equipment', cat: 'Agricultural' },
+    { name: 'E-Rickshaw Deep Cycle', cat: 'E-Rickshaw' },
     { name: 'Industrial & Online UPS VRLA', cat: 'Industrial & Telecom' },
-    { name: 'EV & LiFePO4 Battery Packs', cat: 'EV / Clean Energy' },
+    { name: 'Generator / Genset Batteries', cat: 'Generator & Genset' },
   ];
 
   const servicesList = [

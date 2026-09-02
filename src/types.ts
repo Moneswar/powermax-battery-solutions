@@ -3,45 +3,41 @@ export type BatteryApplication =
   | 'Bike'
   | 'Scooter'
   | 'SUV'
-  | 'Commercial Vehicle'
+  | 'Three-Wheeler'
   | 'Truck'
   | 'Bus'
   | 'Tractor'
-  | 'Auto Rickshaw'
-  | 'EV'
   | 'Inverter'
-  | 'UPS'
   | 'Solar'
+  | 'E-Rickshaw'
+  | 'UPS'
   | 'Industrial'
-  | 'Telecom'
-  | 'Emergency Backup'
-  | 'Heavy Equipment'
+  | 'Generator'
   | 'Other';
 
 export type BatteryTechnology =
-  | 'Lead Acid'
   | 'Flooded Lead Acid'
   | 'Maintenance Free'
-  | 'AGM'
-  | 'GEL'
-  | 'VRLA'
   | 'Tubular'
   | 'Tall Tubular'
   | 'Flat Plate'
-  | 'Deep Cycle'
-  | 'Lithium-ion'
-  | 'LiFePO4';
+  | 'AGM'
+  | 'EFB'
+  | 'VRLA'
+  | 'SMF'
+  | 'Deep Cycle';
 
 export type BatteryCategory =
   | 'Automotive'
   | 'Two-Wheeler'
+  | 'Three-Wheeler'
   | 'Commercial'
   | 'Agricultural'
-  | 'EV / Clean Energy'
   | 'Inverter & Home UPS'
-  | 'Industrial & Telecom'
   | 'Solar Storage'
-  | 'Specialized Power';
+  | 'E-Rickshaw'
+  | 'Industrial & Telecom'
+  | 'Generator & Genset';
 
 export interface Product {
   id: string;
