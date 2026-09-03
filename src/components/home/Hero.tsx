@@ -3,8 +3,6 @@ import {
   ShieldCheck,
   Zap,
   Wrench,
-  ChevronLeft,
-  ChevronRight,
   Clock,
   Sparkles,
   RotateCcw,
@@ -23,6 +21,8 @@ export const Hero: React.FC<HeroProps> = ({
 }) => {
   const [activeSlide, setActiveSlide] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [direction, setDirection] = useState<'next' | 'prev'>('next');
+  const [timerKey, setTimerKey] = useState(0);
 
   const slides = [
     {
@@ -96,21 +96,47 @@ export const Hero: React.FC<HeroProps> = ({
     },
   ];
 
-  // Auto-play timer for carousel
+  // Auto-play timer for carousel: automatically rotates every 1 second (1000ms)
   useEffect(() => {
     if (isPaused) return;
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % slides.length);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, [isPaused, slides.length]);
 
-  const handlePrev = () => {
-    setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
+    const timer = setTimeout(() => {
+      setDirection('next');
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [activeSlide, isPaused, timerKey, slides.length]);
+
+  const handleDotClick = (index: number) => {
+    if (index === activeSlide) {
+      setTimerKey((prev) => prev + 1);
+      return;
+    }
+    setDirection(index > activeSlide ? 'next' : 'prev');
+    setActiveSlide(index);
+    setTimerKey((prev) => prev + 1);
   };
 
-  const handleNext = () => {
-    setActiveSlide((prev) => (prev + 1) % slides.length);
+  const handleMouseEnter = () => {
+    if (typeof window !== 'undefined' && window.matchMedia && !window.matchMedia('(hover: hover)').matches) {
+      return;
+    }
+    setIsPaused(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsPaused(false);
+  };
+
+  const handleTouchStart = () => {
+    setIsPaused(true);
+  };
+
+  const handleTouchEnd = () => {
+    setIsPaused(false);
   };
 
   const currentSlide = slides[activeSlide];
@@ -119,8 +145,10 @@ export const Hero: React.FC<HeroProps> = ({
     <section
       id="hero-section"
       className="relative pt-20 sm:pt-24 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
     >
       {/* WIDE, SHORT PREMIUM HERO BANNER CONTAINER */}
       <div className="relative w-full rounded-2xl sm:rounded-3xl lg:rounded-[28px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-gradient-to-r from-[#F8FAFC] via-[#F4F9F5] to-[#EEF6F8] min-h-[360px] sm:min-h-[320px] lg:h-[340px] flex items-center">
@@ -192,47 +220,56 @@ export const Hero: React.FC<HeroProps> = ({
         {/* BANNER CONTENT GRID: LEFT TEXT & CARDS + RIGHT BATTERY PODIUM */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 py-6 sm:py-7 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-center">
           
-          {/* LEFT SIDE: HEADLINE + SUBTITLE + 3 BENEFIT CARDS */}
-          <div className="lg:col-span-6 xl:col-span-7 space-y-4 text-left">
-            {/* Main Headline */}
-            <div>
-              <h1 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[42px] font-extrabold text-[#0F172A] tracking-tight leading-[1.15]">
-                <span>{currentSlide.headlinePrefix}</span>
-                <span className="text-[#16A34A]">{currentSlide.headlineHighlight}</span>
-                <span className="inline-flex items-center ml-2 text-[#16A34A]">
-                  <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-9 lg:h-9 fill-[#16A34A] text-[#16A34A] -mt-1 inline" />
-                </span>
-              </h1>
-              
-              {/* Subtitle */}
-              <p className="text-xs sm:text-sm lg:text-base text-[#475569] font-medium tracking-normal mt-1.5">
-                {currentSlide.subtitle}
-              </p>
-            </div>
+          {/* LEFT SIDE: HEADLINE + SUBTITLE + 3 BENEFIT CARDS WITH SMOOTH TRANSITION */}
+          <div className="lg:col-span-6 xl:col-span-7 text-left overflow-hidden min-h-[190px] sm:min-h-[175px] flex flex-col justify-center">
+            <div
+              key={currentSlide.id}
+              className={`space-y-4 ${
+                direction === 'next'
+                  ? 'animate-hero-slide-next'
+                  : 'animate-hero-slide-prev'
+              }`}
+            >
+              {/* Main Headline */}
+              <div>
+                <h1 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[42px] font-extrabold text-[#0F172A] tracking-tight leading-[1.15]">
+                  <span>{currentSlide.headlinePrefix}</span>
+                  <span className="text-[#16A34A]">{currentSlide.headlineHighlight}</span>
+                  <span className="inline-flex items-center ml-2 text-[#16A34A]">
+                    <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-9 lg:h-9 fill-[#16A34A] text-[#16A34A] -mt-1 inline" />
+                  </span>
+                </h1>
+                
+                {/* Subtitle */}
+                <p className="text-xs sm:text-sm lg:text-base text-[#475569] font-medium tracking-normal mt-1.5">
+                  {currentSlide.subtitle}
+                </p>
+              </div>
 
-            {/* 3 Compact Benefit Cards Side-by-Side */}
-            <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 max-w-xl">
-              {currentSlide.cards.map((card, idx) => {
-                const IconComponent = card.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="bg-white/95 backdrop-blur-xs border border-[#E2E8F0] rounded-xl sm:rounded-2xl px-3.5 py-2.5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex items-center gap-2.5 hover:border-[#16A34A]/40 transition-colors"
-                  >
-                    <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] flex items-center justify-center shrink-0">
-                      <IconComponent className="w-4 h-4 text-[#16A34A] fill-[#16A34A]/20" />
+              {/* 3 Compact Benefit Cards Side-by-Side */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 max-w-xl">
+                {currentSlide.cards.map((card, idx) => {
+                  const IconComponent = card.icon;
+                  return (
+                    <div
+                      key={idx}
+                      className="bg-white/95 backdrop-blur-xs border border-[#E2E8F0] rounded-xl sm:rounded-2xl px-3.5 py-2.5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex items-center gap-2.5 hover:border-[#16A34A]/40 transition-colors"
+                    >
+                      <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] flex items-center justify-center shrink-0">
+                        <IconComponent className="w-4 h-4 text-[#16A34A] fill-[#16A34A]/20" />
+                      </div>
+                      <div className="min-w-0">
+                        <h2 className="text-xs font-bold text-[#0F172A] leading-tight truncate">
+                          {card.title}
+                        </h2>
+                        <p className="text-[11px] text-[#64748B] font-medium leading-tight truncate mt-0.5">
+                          {card.subtitle}
+                        </p>
+                      </div>
                     </div>
-                    <div className="min-w-0">
-                      <h2 className="text-xs font-bold text-[#0F172A] leading-tight truncate">
-                        {card.title}
-                      </h2>
-                      <p className="text-[11px] text-[#64748B] font-medium leading-tight truncate mt-0.5">
-                        {card.subtitle}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
           </div>
 
@@ -259,30 +296,12 @@ export const Hero: React.FC<HeroProps> = ({
 
         </div>
 
-        {/* CAROUSEL CONTROLS: LEFT CIRCULAR ARROW BUTTON */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-2 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 hover:bg-white border border-[#E2E8F0] shadow-sm hover:shadow-md flex items-center justify-center text-[#475569] hover:text-[#16A34A] transition-all hover:scale-105 active:scale-95 cursor-pointer"
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-
-        {/* CAROUSEL CONTROLS: RIGHT CIRCULAR ARROW BUTTON */}
-        <button
-          onClick={handleNext}
-          className="absolute right-2 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 hover:bg-white border border-[#E2E8F0] shadow-sm hover:shadow-md flex items-center justify-center text-[#475569] hover:text-[#16A34A] transition-all hover:scale-105 active:scale-95 cursor-pointer"
-          aria-label="Next slide"
-        >
-          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
-        </button>
-
         {/* CAROUSEL CONTROLS: BOTTOM CENTER NAVIGATION DOTS */}
         <div className="absolute bottom-2.5 sm:bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
           {slides.map((s, idx) => (
             <button
               key={s.id}
-              onClick={() => setActiveSlide(idx)}
+              onClick={() => handleDotClick(idx)}
               className={`transition-all duration-300 cursor-pointer rounded-full ${
                 activeSlide === idx
                   ? 'w-5 h-2 bg-[#16A34A]'
