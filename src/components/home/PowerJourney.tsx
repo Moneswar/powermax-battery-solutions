@@ -12,16 +12,15 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
     {
       number: '01',
       title: 'Digital Health Diagnosis',
-      subtitle: 'Accurate Conductance & State-of-Health Analysis',
+      subtitle: 'Conductance & State-of-Health Analysis',
       icon: Gauge,
-      color: 'text-red-500',
-      borderColor: 'border-red-500',
+      color: 'text-[#DC2626]',
       description:
-        'Before replacing, our certified technicians perform a multi-point digital conductance test measuring Cold Cranking Amps (CCA), internal cell resistance, and vehicle alternator charging output.',
+        'Before replacing, our technicians perform a multi-point digital conductance test measuring Cold Cranking Amps (CCA), internal resistance, and alternator charging output.',
       keyPoints: [
         'Electronic conductance test eliminates guesswork',
         'Alternator ripple & starter motor load verification',
-        'Printed or WhatsApp digital diagnostic report',
+        'Digital diagnostic report via SMS/WhatsApp',
       ],
       tag: 'Step 1: Diagnostics',
     },
@@ -30,13 +29,12 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
       title: 'Precision OEM Matching',
       subtitle: 'Zero-Misfit Battery Selection',
       icon: BatteryCharging,
-      color: 'text-amber-500',
-      borderColor: 'border-amber-500',
+      color: 'text-[#DC2626]',
       description:
-        'We match your vehicle or home inverter with the exact manufacturer specification—accounting for AGM start-stop requirements, reserve capacity (RC), terminal layout (L/R polarity), and DIN sizing.',
+        'We match your vehicle or inverter with the exact manufacturer specification—accounting for AGM start-stop requirements, reserve capacity (RC), and terminal polarity.',
       keyPoints: [
         'OEM capacity rating & DIN container code match',
-        'Silver-alloy / C21 vibration-resistant tech options',
+        'Silver-alloy / vibration-resistant tech options',
         'Custom warranty tiers from 24 to 72 months',
       ],
       tag: 'Step 2: Selection',
@@ -44,14 +42,13 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
     {
       number: '03',
       title: 'Doorstep Fitment & Memory Saver',
-      subtitle: 'Zero Reset Electrical Installation',
+      subtitle: 'Zero-Reset Electrical Installation',
       icon: Wrench,
-      color: 'text-blue-500',
-      borderColor: 'border-blue-500',
+      color: 'text-[#DC2626]',
       description:
-        'Our technician connects an OBD-II memory saver before removing the old battery, preventing infotainment resets, ECU clock wipes, and sensor calibration errors. Clamps are cleaned and anti-sulphate petroleum jelly applied.',
+        'Our technician connects an OBD-II memory saver before removing the old battery, preventing infotainment resets, ECU clock wipes, and sensor calibration loss.',
       keyPoints: [
-        'OBD-II memory saver preserves radio and ECU settings',
+        'OBD-II memory saver preserves radio & ECU settings',
         'Terminal de-oxidation and high-grade petroleum jelly',
         'Safe torque tightening on brass/lead clamps',
       ],
@@ -62,10 +59,9 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
       title: 'Digital Warranty & Green Recycling',
       subtitle: 'Paperless Registration & Pollution Control',
       icon: RefreshCw,
-      color: 'text-emerald-500',
-      borderColor: 'border-emerald-500',
+      color: 'text-[#DC2626]',
       description:
-        'We register your serial number on the manufacturer portal immediately. Your old spent lead-acid battery is collected with maximum fair scrap credit and routed to authorized pollution-controlled smelters.',
+        'We register your serial number on the manufacturer portal immediately. Your old spent lead-acid battery is collected with maximum fair scrap credit for eco-friendly recycling.',
       keyPoints: [
         'Instant digital warranty SMS & invoice',
         'Maximum scrap rebate on old battery exchange',
@@ -76,51 +72,47 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
   ];
 
   return (
-    <section id="power-journey" className="py-20 bg-neutral-900 border-b border-neutral-800 relative overflow-hidden">
-      {/* Dynamic Glows */}
-      <div className="absolute top-1/3 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
-
+    <section id="power-journey" className="py-20 bg-[#F8FAFC] border-b border-[#E2E8F0] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono font-bold uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>SIGNATURE EXPERIENCE: THE POWER JOURNEY</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF2F2] border border-[#DC2626]/20 text-[#DC2626] text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-[#DC2626]" />
+            <span>The PowerMax Process</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            THE 4-STEP POWER JOURNEY
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+            The 4-Step Power Journey
           </h2>
-          <p className="text-sm sm:text-base text-neutral-300">
-            How we ensure continuous, reliable power for your vehicle, inverter, and equipment from initial diagnosis to lifecycle recycling.
+          <p className="text-sm sm:text-base text-[#64748B] font-medium">
+            How we ensure continuous, reliable power for your vehicle, inverter, and equipment from initial diagnostics to lifecycle recycling.
           </p>
         </div>
 
         {/* STEP PROGRESS TABS */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
           {steps.map((s, idx) => {
             const isActive = activeStep === idx;
-            const Icon = s.icon;
             return (
               <button
                 key={idx}
                 onClick={() => setActiveStep(idx)}
-                className={`p-4 rounded-xl text-left border transition-all cursor-pointer flex items-center gap-3 ${
+                className={`p-4 rounded-2xl text-left border transition-all cursor-pointer flex items-center gap-3 ${
                   isActive
-                    ? 'bg-neutral-950 border-red-500 text-white shadow-lg'
-                    : 'bg-neutral-950/60 border-neutral-800 text-neutral-400 hover:text-neutral-200 hover:border-neutral-700'
+                    ? 'bg-white border-[#DC2626] text-[#0F172A] shadow-md'
+                    : 'bg-white/80 border-[#E2E8F0] text-[#64748B] hover:border-[#CBD5E1] hover:text-[#0F172A]'
                 }`}
               >
                 <div
-                  className={`w-9 h-9 rounded-lg flex items-center justify-center font-mono font-black text-sm shrink-0 ${
-                    isActive ? 'bg-red-600 text-white' : 'bg-neutral-900 text-neutral-400'
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center font-bold text-sm shrink-0 ${
+                    isActive ? 'bg-[#DC2626] text-white' : 'bg-[#F1F5F9] text-[#64748B]'
                   }`}
                 >
                   {s.number}
                 </div>
                 <div className="truncate">
-                  <div className="text-xs font-bold truncate">{s.title}</div>
-                  <div className="text-[10px] font-mono text-neutral-400 truncate">{s.tag}</div>
+                  <div className="text-xs font-bold truncate text-[#0F172A]">{s.title}</div>
+                  <div className="text-[10px] text-[#64748B] truncate">{s.tag}</div>
                 </div>
               </button>
             );
@@ -132,42 +124,42 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
           const current = steps[activeStep];
           const Icon = current.icon;
           return (
-            <div className="bg-neutral-950 p-8 sm:p-10 rounded-2xl border border-neutral-800 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="bg-white p-8 sm:p-10 rounded-3xl border border-[#E2E8F0] shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-6">
                 <div className="flex items-center gap-3">
-                  <span className="px-3 py-1 rounded-full bg-neutral-900 border border-neutral-800 text-xs font-mono font-bold text-red-400">
+                  <span className="px-3 py-1 rounded-full bg-[#FEF2F2] border border-[#DC2626]/20 text-xs font-bold text-[#DC2626]">
                     {current.tag}
                   </span>
-                  <span className="text-xs font-mono text-neutral-400">
+                  <span className="text-xs text-[#64748B] font-semibold">
                     Step {activeStep + 1} of 4
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                  <h3 className="text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight">
                     {current.title}
                   </h3>
-                  <h4 className="text-sm font-mono text-red-400 mt-1 font-semibold">
+                  <h4 className="text-sm text-[#DC2626] mt-1 font-bold">
                     {current.subtitle}
                   </h4>
-                  <p className="text-sm sm:text-base text-neutral-300 mt-4 leading-relaxed">
+                  <p className="text-sm sm:text-base text-[#64748B] mt-3 leading-relaxed">
                     {current.description}
                   </p>
                 </div>
 
                 <div className="space-y-2.5 pt-2">
                   {current.keyPoints.map((pt, i) => (
-                    <div key={i} className="flex items-center gap-3 text-xs sm:text-sm text-neutral-200">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                    <div key={i} className="flex items-center gap-3 text-xs sm:text-sm text-[#475569]">
+                      <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0" />
                       <span>{pt}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="pt-4 flex flex-wrap gap-4">
+                <div className="pt-4 flex flex-wrap gap-3.5">
                   <button
                     onClick={onStartJourney}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs tracking-wide shadow-md transition-all cursor-pointer"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold text-xs tracking-wide shadow-xs transition-all cursor-pointer"
                   >
                     <span>Experience This Service</span>
                     <ArrowRight className="w-4 h-4" />
@@ -176,14 +168,14 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
                   {activeStep < steps.length - 1 ? (
                     <button
                       onClick={() => setActiveStep((prev) => prev + 1)}
-                      className="px-5 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-bold text-xs transition-colors cursor-pointer"
+                      className="px-5 py-3 rounded-xl bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#0F172A] border border-[#E2E8F0] font-bold text-xs transition-colors cursor-pointer"
                     >
                       Next Step →
                     </button>
                   ) : (
                     <button
                       onClick={() => setActiveStep(0)}
-                      className="px-5 py-3 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 font-bold text-xs transition-colors cursor-pointer"
+                      className="px-5 py-3 rounded-xl bg-[#F8FAFC] hover:bg-[#F1F5F9] text-[#0F172A] border border-[#E2E8F0] font-bold text-xs transition-colors cursor-pointer"
                     >
                       Restart Journey ↺
                     </button>
@@ -193,14 +185,13 @@ export const PowerJourney: React.FC<PowerJourneyProps> = ({ onStartJourney }) =>
 
               {/* Graphical Icon Accent Box */}
               <div className="lg:col-span-4 flex items-center justify-center">
-                <div className="w-48 h-48 sm:w-60 sm:h-60 rounded-3xl bg-neutral-900/90 border border-neutral-800 p-6 flex flex-col items-center justify-center text-center shadow-inner relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-red-600/5 rounded-3xl group-hover:bg-red-600/10 transition-colors" />
-                  <Icon className={`w-16 h-16 ${current.color} mb-3 relative z-10`} />
-                  <span className="text-3xl font-black text-white font-mono relative z-10">
+                <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-[#F8FAFC] border border-[#E2E8F0] p-6 flex flex-col items-center justify-center text-center shadow-xs relative overflow-hidden">
+                  <Icon className="w-16 h-16 text-[#DC2626] mb-3 relative z-10" />
+                  <span className="text-3xl font-black text-[#0F172A] font-mono relative z-10">
                     {current.number}
                   </span>
-                  <span className="text-xs text-neutral-400 font-mono uppercase mt-1 relative z-10">
-                    Power Phase
+                  <span className="text-xs text-[#64748B] font-bold uppercase tracking-wider mt-1 relative z-10">
+                    Process Phase
                   </span>
                 </div>
               </div>

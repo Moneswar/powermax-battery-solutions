@@ -80,26 +80,26 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
     >
       {isSubmitted ? (
         <div className="py-6 text-center space-y-4 animate-in fade-in zoom-in-95">
-          <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
+          <div className="w-16 h-16 bg-[#EAF6EA] text-[#2E8B35] rounded-full flex items-center justify-center mx-auto border border-[#2E8B35]/20">
             <CheckCircle2 className="w-8 h-8" />
           </div>
-          <h4 className="text-xl font-bold text-white">Enquiry Received!</h4>
-          <p className="text-sm text-neutral-300 max-w-md mx-auto leading-relaxed">
-            Thank you, <span className="font-semibold text-white">{formData.name}</span>. Our battery specialist will contact you on{' '}
-            <span className="font-semibold text-white">{formData.phone}</span> within 15 minutes during operating hours.
+          <h4 className="text-xl font-bold text-[#172033]">Enquiry Received!</h4>
+          <p className="text-sm text-[#667085] max-w-md mx-auto leading-relaxed font-medium">
+            Thank you, <span className="font-bold text-[#172033]">{formData.name}</span>. Our battery specialist will contact you on{' '}
+            <span className="font-bold text-[#172033]">{formData.phone}</span> within 15 minutes during operating hours.
           </p>
 
           <div className="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
             <button
               onClick={handleWhatsAppDirect}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-all shadow-md cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-sm transition-all shadow-sm cursor-pointer"
             >
               <MessageCircle className="w-4 h-4" />
               Chat on WhatsApp Now
             </button>
             <button
               onClick={resetForm}
-              className="px-5 py-2.5 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-200 font-semibold text-sm transition-colors cursor-pointer"
+              className="px-5 py-2.5 rounded-xl bg-[#F8FAFC] hover:bg-[#F1F5F9] border border-[#E5E7EB] text-[#172033] font-bold text-sm transition-colors cursor-pointer"
             >
               Done
             </button>
@@ -109,27 +109,27 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Top Info Banner if product */}
           {product && (
-            <div className="p-3 bg-neutral-800/80 border border-neutral-700/60 rounded-xl flex items-center justify-between text-xs text-neutral-300">
+            <div className="p-3 bg-[#F8FAFC] border border-[#E5E7EB] rounded-2xl flex items-center justify-between text-xs text-[#667085]">
               <div>
-                <span className="font-bold text-white block">{product.brand} {product.name}</span>
+                <span className="font-bold text-[#172033] block">{product.brand} {product.name}</span>
                 <span>{product.voltage} • {product.capacity} • {product.warrantyMonths}M Warranty</span>
               </div>
-              <span className="px-2 py-1 rounded bg-red-600/20 text-red-400 font-mono font-bold border border-red-500/30">
+              <span className="px-2.5 py-1 rounded-full bg-[#EAF6EA] text-[#1F6B2A] font-bold border border-[#2E8B35]/20">
                 In Stock
               </span>
             </div>
           )}
 
           {errorMsg && (
-            <div className="p-3 rounded-lg bg-red-950/80 border border-red-800 text-red-300 text-xs font-medium">
+            <div className="p-3 rounded-xl bg-[#FEE2E2] border border-[#DC2626]/25 text-[#991B1B] text-xs font-bold">
               {errorMsg}
             </div>
           )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                Your Full Name <span className="text-red-500">*</span>
+              <label className="block text-xs font-bold text-[#172033] mb-1">
+                Your Full Name <span className="text-[#DC2626]">*</span>
               </label>
               <input
                 type="text"
@@ -138,13 +138,13 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="e.g. Rahul Sharma"
-                className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-sm focus:outline-hidden focus:border-red-500 transition-colors"
+                className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs sm:text-sm text-[#172033] placeholder-[#94A3B8] focus:outline-hidden focus:border-[#2E8B35]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                Phone Number <span className="text-red-500">*</span>
+              <label className="block text-xs font-bold text-[#172033] mb-1">
+                Phone Number <span className="text-[#DC2626]">*</span>
               </label>
               <input
                 type="tel"
@@ -153,14 +153,14 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder="e.g. +91 98765 43210"
-                className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-sm focus:outline-hidden focus:border-red-500 transition-colors"
+                className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs sm:text-sm text-[#172033] placeholder-[#94A3B8] focus:outline-hidden focus:border-[#2E8B35]"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1">
+              <label className="block text-xs font-bold text-[#172033] mb-1">
                 Email Address (Optional)
               </label>
               <input
@@ -168,37 +168,37 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="rahul@example.com"
-                className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-sm focus:outline-hidden focus:border-red-500 transition-colors"
+                placeholder="e.g. rahul@example.com"
+                className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs sm:text-sm text-[#172033] placeholder-[#94A3B8] focus:outline-hidden focus:border-[#2E8B35]"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                Vehicle / Equipment Model
+              <label className="block text-xs font-bold text-[#172033] mb-1">
+                Vehicle Make / Model / Requirement
               </label>
               <input
                 type="text"
                 name="vehicleOrApp"
                 value={formData.vehicleOrApp}
                 onChange={handleChange}
-                placeholder="e.g. Swift 2021 / 1500VA Inverter"
-                className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-sm focus:outline-hidden focus:border-red-500 transition-colors"
+                placeholder="e.g. Maruti Swift Petrol / Luminous Inverter"
+                className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs sm:text-sm text-[#172033] placeholder-[#94A3B8] focus:outline-hidden focus:border-[#2E8B35]"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-neutral-300 mb-1">
-              Message or Specific Requirements
+            <label className="block text-xs font-bold text-[#172033] mb-1">
+              Your Message or Specific Query
             </label>
             <textarea
               name="message"
-              rows={2}
+              rows={3}
               value={formData.message}
               onChange={handleChange}
-              placeholder="Need doorstep installation in HSR Layout / Old battery exchange price inquiry..."
-              className="w-full px-3.5 py-2 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-sm focus:outline-hidden focus:border-red-500 transition-colors resize-none"
+              placeholder="Provide your location in Bangalore or any other details..."
+              className="w-full px-3.5 py-2.5 bg-white border border-[#E5E7EB] rounded-xl text-xs sm:text-sm text-[#172033] placeholder-[#94A3B8] focus:outline-hidden focus:border-[#2E8B35]"
             />
           </div>
 
@@ -206,25 +206,20 @@ export const QuickEnquiryModal: React.FC<QuickEnquiryModalProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm transition-all shadow-lg hover:shadow-red-600/30 cursor-pointer disabled:opacity-50"
+              className="flex-1 py-3 px-5 rounded-xl bg-[#2E8B35] hover:bg-[#1F6B2A] text-white font-bold text-xs sm:text-sm shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
             >
               <Send className="w-4 h-4" />
-              {isSubmitting ? 'Submitting...' : 'Send Fast Enquiry'}
+              <span>{isSubmitting ? 'Submitting...' : 'Submit Enquiry'}</span>
             </button>
 
             <button
               type="button"
               onClick={handleWhatsAppDirect}
-              className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 border border-emerald-500/40 text-emerald-300 font-semibold text-sm transition-colors cursor-pointer"
+              className="py-3 px-5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2"
             >
-              <MessageCircle className="w-4 h-4 text-emerald-400" />
-              WhatsApp Instead
+              <MessageCircle className="w-4 h-4" />
+              <span>Chat on WhatsApp</span>
             </button>
-          </div>
-
-          <div className="flex items-center justify-center gap-2 text-[11px] text-neutral-400 pt-1">
-            <ShieldCheck className="w-3.5 h-3.5 text-neutral-500" />
-            <span>Zero spam guarantee. Genuine authorized distributor advice.</span>
           </div>
         </form>
       )}

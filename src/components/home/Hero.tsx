@@ -1,21 +1,19 @@
-import React from 'react';
-import { ProductImage } from '../common/ProductImage';
-import { PRODUCTS_DATA } from '../../data/products';
-import { SITE_CONFIG, QUICK_CONTACT_LINKS } from '../../config/siteConfig';
+import React, { useState, useEffect } from 'react';
 import {
-  ArrowRight,
-  Search,
   ShieldCheck,
-  Award,
-  Headphones,
   Zap,
+  Wrench,
+  ChevronLeft,
+  ChevronRight,
+  Clock,
   Sparkles,
+  RotateCcw,
 } from 'lucide-react';
 
 interface HeroProps {
   onExploreProducts: () => void;
   onScrollToFinder: () => void;
-  onContactClick: () => void;
+  onContactClick?: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({
@@ -23,145 +21,278 @@ export const Hero: React.FC<HeroProps> = ({
   onScrollToFinder,
   onContactClick,
 }) => {
-  // Use representative flagship battery for visualization (Amaron Hi-Life DIN55 / Exide Mileage)
-  const heroProduct = PRODUCTS_DATA[0];
-  const secondaryProduct = PRODUCTS_DATA[1];
-  const thirdProduct = PRODUCTS_DATA[4]; // Inverter
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const slides = [
+    {
+      id: 0,
+      headlinePrefix: 'Power That Moves ',
+      headlineHighlight: 'You',
+      subtitle: 'High performance batteries for every need',
+      cards: [
+        {
+          icon: ShieldCheck,
+          title: 'Longer Life',
+          subtitle: 'Built to last',
+        },
+        {
+          icon: Zap,
+          title: 'High Cranking Power',
+          subtitle: 'Instant Start',
+        },
+        {
+          icon: Wrench,
+          title: 'Low Maintenance',
+          subtitle: 'Hassle Free',
+        },
+      ],
+    },
+    {
+      id: 1,
+      headlinePrefix: 'Express Doorstep ',
+      headlineHighlight: 'Delivery',
+      subtitle: 'Quick 30–60 minute installation by certified technicians',
+      cards: [
+        {
+          icon: Clock,
+          title: 'Express Arrival',
+          subtitle: '30–60 Minutes',
+        },
+        {
+          icon: ShieldCheck,
+          title: 'Memory Saver',
+          subtitle: 'No ECU Reset',
+        },
+        {
+          icon: RotateCcw,
+          title: 'Old Battery Scrap',
+          subtitle: 'Instant Rebate',
+        },
+      ],
+    },
+    {
+      id: 2,
+      headlinePrefix: '100% Genuine Brand ',
+      headlineHighlight: 'Warranty',
+      subtitle: 'Authorized distributor for Amaron, Exide & SF Sonic',
+      cards: [
+        {
+          icon: ShieldCheck,
+          title: 'Official Warranty',
+          subtitle: 'Up to 72 Months',
+        },
+        {
+          icon: Sparkles,
+          title: 'Paperless Registration',
+          subtitle: 'Digital Portal',
+        },
+        {
+          icon: Zap,
+          title: 'OEM Certified',
+          subtitle: 'Factory Barcoded',
+        },
+      ],
+    },
+  ];
+
+  // Auto-play timer for carousel
+  useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setActiveSlide((prev) => (prev + 1) % slides.length);
+    }, 7000);
+    return () => clearInterval(interval);
+  }, [isPaused, slides.length]);
+
+  const handlePrev = () => {
+    setActiveSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const handleNext = () => {
+    setActiveSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const currentSlide = slides[activeSlide];
 
   return (
     <section
       id="hero-section"
-      className="relative min-h-[90vh] pt-28 pb-16 lg:py-36 bg-neutral-950 overflow-hidden flex items-center bg-grid-pattern border-b border-neutral-800/80"
+      className="relative pt-20 sm:pt-24 pb-4 sm:pb-6 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Dynamic Ambient Energy Glows */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute top-1/3 right-10 w-96 h-96 bg-amber-500/10 rounded-full blur-[120px] pointer-events-none" />
+      {/* WIDE, SHORT PREMIUM HERO BANNER CONTAINER */}
+      <div className="relative w-full rounded-2xl sm:rounded-3xl lg:rounded-[28px] overflow-hidden border border-[#E2E8F0] shadow-[0_4px_20px_rgba(0,0,0,0.03)] bg-gradient-to-r from-[#F8FAFC] via-[#F4F9F5] to-[#EEF6F8] min-h-[360px] sm:min-h-[320px] lg:h-[340px] flex items-center">
+        
+        {/* BACKGROUND AMBIENT ENERGY WAVES & GLOW */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          {/* Soft Green Light Glow Behind Batteries */}
+          <div className="absolute right-10 top-1/2 -translate-y-1/2 w-[340px] h-[340px] bg-gradient-to-tr from-[#22C55E]/15 via-[#16A34A]/8 to-transparent rounded-full blur-3xl" />
+          <div className="absolute right-1/3 bottom-0 w-[260px] h-[180px] bg-[#38BDF8]/8 rounded-full blur-2xl" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+          {/* Smooth Green Ribbon Energy Waves (Matching Reference) */}
+          <svg
+            className="absolute inset-0 w-full h-full opacity-65"
+            viewBox="0 0 1200 340"
+            fill="none"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M-50 280 C 200 300, 380 280, 560 210 C 720 150, 880 180, 1250 140"
+              stroke="url(#greenWaveGrad1)"
+              strokeWidth="4"
+              strokeLinecap="round"
+              className="animate-pulse"
+              style={{ animationDuration: '6s' }}
+            />
+            <path
+              d="M-50 295 C 240 310, 440 260, 620 190 C 790 130, 940 160, 1250 120"
+              stroke="url(#greenWaveGrad2)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+            />
+            <path
+              d="M100 320 C 350 330, 500 240, 680 170 C 850 110, 1020 140, 1250 100"
+              stroke="url(#greenWaveGrad3)"
+              strokeWidth="1.5"
+              strokeDasharray="4 6"
+              strokeLinecap="round"
+            />
+            <defs>
+              <linearGradient id="greenWaveGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#22C55E" stopOpacity="0.05" />
+                <stop offset="35%" stopColor="#16A34A" stopOpacity="0.4" />
+                <stop offset="65%" stopColor="#4ADE80" stopOpacity="0.8" />
+                <stop offset="100%" stopColor="#10B981" stopOpacity="0.2" />
+              </linearGradient>
+              <linearGradient id="greenWaveGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#22C55E" stopOpacity="0.0" />
+                <stop offset="40%" stopColor="#22C55E" stopOpacity="0.5" />
+                <stop offset="70%" stopColor="#86EFAC" stopOpacity="0.7" />
+                <stop offset="100%" stopColor="#38BDF8" stopOpacity="0.1" />
+              </linearGradient>
+              <linearGradient id="greenWaveGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#16A34A" stopOpacity="0.0" />
+                <stop offset="50%" stopColor="#4ADE80" stopOpacity="0.6" />
+                <stop offset="100%" stopColor="#22C55E" stopOpacity="0.0" />
+              </linearGradient>
+            </defs>
+          </svg>
+
+          {/* Floating Leaves / Organic Energy Particles */}
+          <div className="absolute top-10 left-[42%] w-2 h-3.5 bg-[#22C55E]/40 rounded-full rotate-45 blur-[0.5px] animate-[floatLeaf_7s_ease-in-out_infinite]" />
+          <div className="absolute bottom-16 left-[32%] w-2.5 h-4 bg-[#16A34A]/35 rounded-full -rotate-12 blur-[0.5px] animate-[floatLeaf_9s_ease-in-out_infinite_delay-1000]" />
+          <div className="absolute top-14 right-[38%] w-2 h-3 bg-[#4ADE80]/45 rounded-full rotate-[60deg] blur-[0.5px] animate-[floatLeaf_6s_ease-in-out_infinite_delay-500]" />
+          <div className="absolute top-8 right-[12%] w-2 h-3 bg-[#16A34A]/30 rounded-full -rotate-45 blur-[0.5px]" />
+          <div className="absolute bottom-12 right-[8%] w-2.5 h-3.5 bg-[#22C55E]/30 rounded-full rotate-[30deg] blur-[0.5px]" />
+        </div>
+
+        {/* BANNER CONTENT GRID: LEFT TEXT & CARDS + RIGHT BATTERY PODIUM */}
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 py-6 sm:py-7 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-4 items-center">
           
-          {/* LEFT: VALUE PROPOSITION & CONFIDENT HEADLINE */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-600/10 border border-red-500/30 text-red-400 text-xs font-mono font-bold uppercase tracking-widest animate-in fade-in slide-in-from-bottom-2">
-              <Sparkles className="w-3.5 h-3.5 text-red-500" />
-              <span>RELIABLE POWER. EVERY JOURNEY.</span>
-            </div>
-
+          {/* LEFT SIDE: HEADLINE + SUBTITLE + 3 BENEFIT CARDS */}
+          <div className="lg:col-span-6 xl:col-span-7 space-y-4 text-left">
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.1]">
-              POWER THAT <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-500 to-amber-500">
-                MOVES YOU.
-              </span>
-            </h1>
-
-            {/* Supporting Copy */}
-            <p className="text-base sm:text-lg text-neutral-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal">
-              Engineered energy solutions for passenger vehicles, two-wheelers, heavy commercial fleets, and uninterrupted home power backup. Genuine products, certified fitment, and rapid local assistance.
-            </p>
-
-            {/* CTAs */}
-            <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-              <button
-                id="hero-explore-products-btn"
-                onClick={onExploreProducts}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm tracking-wide shadow-xl shadow-red-600/25 transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer"
-              >
-                <span>Explore Products</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-
-              <button
-                id="hero-find-battery-btn"
-                onClick={onScrollToFinder}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-4 rounded-xl bg-neutral-900/90 hover:bg-neutral-800 text-neutral-100 border border-neutral-700 hover:border-neutral-600 font-bold text-sm tracking-wide transition-all duration-200 cursor-pointer"
-              >
-                <Search className="w-4 h-4 text-red-400" />
-                <span>Find Your Battery</span>
-              </button>
+            <div>
+              <h1 className="text-2xl sm:text-3xl lg:text-[38px] xl:text-[42px] font-extrabold text-[#0F172A] tracking-tight leading-[1.15]">
+                <span>{currentSlide.headlinePrefix}</span>
+                <span className="text-[#16A34A]">{currentSlide.headlineHighlight}</span>
+                <span className="inline-flex items-center ml-2 text-[#16A34A]">
+                  <Zap className="w-6 h-6 sm:w-8 sm:h-8 lg:w-9 lg:h-9 fill-[#16A34A] text-[#16A34A] -mt-1 inline" />
+                </span>
+              </h1>
+              
+              {/* Subtitle */}
+              <p className="text-xs sm:text-sm lg:text-base text-[#475569] font-medium tracking-normal mt-1.5">
+                {currentSlide.subtitle}
+              </p>
             </div>
 
-            {/* Trust Points Strip */}
-            <div className="pt-8 border-t border-neutral-800/80 grid grid-cols-3 gap-4 text-left">
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-red-400 shrink-0">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white leading-tight">100% Genuine</h4>
-                  <p className="text-[11px] text-neutral-400">Direct from Brands</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-amber-400 shrink-0">
-                  <Award className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white leading-tight">Top Brands</h4>
-                  <p className="text-[11px] text-neutral-400">Amaron, Exide, Bosch</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-lg bg-neutral-900 border border-neutral-800 flex items-center justify-center text-emerald-400 shrink-0">
-                  <Headphones className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white leading-tight">Expert Fitment</h4>
-                  <p className="text-[11px] text-neutral-400">Doorstep & In-Store</p>
-                </div>
-              </div>
+            {/* 3 Compact Benefit Cards Side-by-Side */}
+            <div className="pt-2 grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 max-w-xl">
+              {currentSlide.cards.map((card, idx) => {
+                const IconComponent = card.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="bg-white/95 backdrop-blur-xs border border-[#E2E8F0] rounded-xl sm:rounded-2xl px-3.5 py-2.5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex items-center gap-2.5 hover:border-[#16A34A]/40 transition-colors"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-[#F0FDF4] flex items-center justify-center shrink-0">
+                      <IconComponent className="w-4 h-4 text-[#16A34A] fill-[#16A34A]/20" />
+                    </div>
+                    <div className="min-w-0">
+                      <h2 className="text-xs font-bold text-[#0F172A] leading-tight truncate">
+                        {card.title}
+                      </h2>
+                      <p className="text-[11px] text-[#64748B] font-medium leading-tight truncate mt-0.5">
+                        {card.subtitle}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* RIGHT: PREMIUM PRODUCT VISUALIZATION & TECHNICAL CALLOUTS */}
-          <div className="lg:col-span-5 relative flex items-center justify-center pt-6 lg:pt-0">
-            {/* Battery Showcase Stage */}
-            <div className="relative w-full max-w-md mx-auto flex flex-col items-center">
-              
-              {/* Product Photograph Stage */}
-              <div className="relative z-20 w-full flex items-center justify-center p-4">
-                <ProductImage
-                  product={heroProduct}
-                  aspectRatio="4/3"
-                  className="h-72 sm:h-80 w-full max-w-[420px] bg-transparent border-0"
-                  imageClassName="filter drop-shadow-[0_20px_35px_rgba(0,0,0,0.8)]"
-                  priority={true}
-                />
-              </div>
+          {/* RIGHT SIDE: AUTHENTIC 3-BATTERY SHOWROOM PODIUM (STABLE, NO FLOATING) */}
+          <div className="lg:col-span-6 xl:col-span-5 relative flex items-center justify-center lg:justify-end">
+            <div
+              onClick={onExploreProducts}
+              className="relative w-full max-w-[460px] sm:max-w-[490px] cursor-pointer group"
+              title="Explore Amaron, Exide and SF Sonic batteries"
+            >
+              {/* Realistic Ground Contact Shadow under Podium */}
+              <div className="absolute inset-x-8 bottom-0 h-6 bg-slate-900/10 rounded-full blur-md pointer-events-none" />
 
-              {/* Floating Technical Spec Badges */}
-              {/* Top Left Spec: 12V */}
-              <div className="absolute top-4 -left-2 sm:-left-6 z-30 px-3.5 py-2 rounded-xl bg-neutral-900/90 border border-neutral-700/80 backdrop-blur-md shadow-2xl animate-bounce [animation-duration:4s]">
-                <div className="text-[10px] font-mono uppercase text-neutral-400">Voltage</div>
-                <div className="text-sm font-black text-white flex items-center gap-1">
-                  <Zap className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                  <span>12V DC</span>
-                </div>
-              </div>
-
-              {/* Top Right Spec: 55Ah */}
-              <div className="absolute top-12 -right-2 sm:-right-4 z-30 px-3.5 py-2 rounded-xl bg-neutral-900/90 border border-neutral-700/80 backdrop-blur-md shadow-2xl animate-bounce [animation-duration:4.5s]">
-                <div className="text-[10px] font-mono uppercase text-neutral-400">Capacity</div>
-                <div className="text-sm font-black text-amber-400">55 Ah</div>
-              </div>
-
-              {/* Bottom Center Spec: 66M Warranty */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 z-30 px-4 py-2 rounded-xl bg-neutral-900/95 border border-red-500/40 backdrop-blur-md shadow-2xl flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-red-500 animate-ping" />
-                <span className="text-xs font-bold text-white tracking-wide">
-                  66 MONTHS WARRANTY
-                </span>
-              </div>
-
-              {/* Subdued Platform Base Reflection */}
-              <div className="w-4/5 h-6 bg-radial-gradient blur-md rounded-full -mt-2 opacity-80 pointer-events-none" />
+              {/* The Authentic 3-Battery Showroom Podium Artwork */}
+              <img
+                src="/images/hero/hero-batteries-podium.webp"
+                alt="Amaron, Exide and SF Sonic authentic batteries on showroom podium"
+                className="w-full h-auto object-contain select-none drop-shadow-[0_8px_20px_rgba(15,23,42,0.06)] transition-transform duration-300 group-hover:scale-[1.01]"
+                loading="eager"
+                draggable={false}
+              />
             </div>
           </div>
 
         </div>
+
+        {/* CAROUSEL CONTROLS: LEFT CIRCULAR ARROW BUTTON */}
+        <button
+          onClick={handlePrev}
+          className="absolute left-2 sm:left-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 hover:bg-white border border-[#E2E8F0] shadow-sm hover:shadow-md flex items-center justify-center text-[#475569] hover:text-[#16A34A] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+
+        {/* CAROUSEL CONTROLS: RIGHT CIRCULAR ARROW BUTTON */}
+        <button
+          onClick={handleNext}
+          className="absolute right-2 sm:right-3.5 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/95 hover:bg-white border border-[#E2E8F0] shadow-sm hover:shadow-md flex items-center justify-center text-[#475569] hover:text-[#16A34A] transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+        </button>
+
+        {/* CAROUSEL CONTROLS: BOTTOM CENTER NAVIGATION DOTS */}
+        <div className="absolute bottom-2.5 sm:bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-1.5">
+          {slides.map((s, idx) => (
+            <button
+              key={s.id}
+              onClick={() => setActiveSlide(idx)}
+              className={`transition-all duration-300 cursor-pointer rounded-full ${
+                activeSlide === idx
+                  ? 'w-5 h-2 bg-[#16A34A]'
+                  : 'w-2 h-2 bg-[#CBD5E1] hover:bg-[#94A3B8]'
+              }`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );

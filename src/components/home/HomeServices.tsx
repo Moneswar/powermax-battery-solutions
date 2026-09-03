@@ -47,65 +47,59 @@ export const HomeServices: React.FC<HomeServicesProps> = ({
   };
 
   return (
-    <section id="services-summary" className="py-20 bg-neutral-950 border-b border-neutral-800 relative">
+    <section id="services-summary" className="py-20 bg-[#F8FAFC] border-b border-[#E2E8F0] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
+        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono font-bold uppercase tracking-widest mb-3">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>FULL-SPECTRUM TECHNICAL SUPPORT</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF2F2] border border-[#DC2626]/20 text-[#DC2626] text-xs font-bold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-[#DC2626]" />
+              <span>Full Technical Support</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              COMPLETE BATTERY SERVICES
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+              Essential Battery Services
             </h2>
-            <p className="text-sm sm:text-base text-neutral-300 mt-2 max-w-xl">
-              From doorstep fitment and emergency breakdown assistance to solar power audits and eco-friendly scrap recycling.
+            <p className="text-sm sm:text-base text-[#64748B] mt-2 max-w-xl font-medium">
+              Professional doorstep fitment, computerized load diagnostics, and green recycling handled by factory-trained technicians.
             </p>
           </div>
 
           <button
             onClick={onViewAllServices}
-            className="inline-flex items-center gap-2 text-sm font-bold text-red-400 hover:text-red-300 group cursor-pointer"
+            className="inline-flex items-center gap-2 text-sm font-bold text-[#DC2626] hover:text-[#B91C1C] group cursor-pointer"
           >
             <span>View All Services</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
 
-        {/* Services Grid */}
+        {/* Services 4-Card Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES_DATA.slice(0, 4).map((service) => {
-            const Icon = getServiceIcon(service.iconName);
+          {SERVICES_DATA.slice(0, 4).map((srv) => {
+            const Icon = getServiceIcon(srv.iconName);
             return (
               <div
-                key={service.id}
-                onClick={() => onSelectService(service)}
-                className="bg-neutral-900/80 p-6 rounded-2xl border border-neutral-800 hover:border-red-500/40 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between cursor-pointer group"
+                key={srv.id}
+                onClick={() => onSelectService(srv)}
+                className="bg-white p-6 rounded-2xl border border-[#E2E8F0] hover:border-[#DC2626]/40 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md flex flex-col justify-between cursor-pointer group shadow-xs"
               >
-                <div className="space-y-4">
-                  <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-red-500 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
+                <div className="space-y-3.5">
+                  <div className="w-12 h-12 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 flex items-center justify-center text-[#DC2626] group-hover:bg-[#DC2626] group-hover:text-white transition-colors duration-300">
                     <Icon className="w-6 h-6" />
                   </div>
-
-                  <div>
-                    <h3 className="text-lg font-bold text-white tracking-tight group-hover:text-red-400 transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-xs text-neutral-300 mt-2 leading-relaxed line-clamp-2">
-                      {service.shortDescription}
-                    </p>
-                  </div>
+                  <h3 className="text-base font-bold text-[#0F172A] group-hover:text-[#DC2626] transition-colors">
+                    {srv.title}
+                  </h3>
+                  <p className="text-xs text-[#64748B] leading-relaxed line-clamp-3 font-medium">
+                    {srv.shortDescription}
+                  </p>
                 </div>
 
-                <div className="pt-4 mt-4 border-t border-neutral-800/80 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-mono text-neutral-400">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                    <span>{service.turnaroundTime}</span>
-                  </div>
-                  <span className="text-xs font-bold text-red-400 group-hover:text-white transition-colors">
-                    Details →
+                <div className="pt-4 mt-4 border-t border-[#F1F5F9] flex items-center justify-between text-xs">
+                  <span className="font-bold text-[#DC2626]">{srv.turnaroundTime}</span>
+                  <span className="font-bold text-[#64748B] group-hover:text-[#0F172A] transition-colors">
+                    Learn More →
                   </span>
                 </div>
               </div>

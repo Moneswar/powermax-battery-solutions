@@ -16,8 +16,8 @@ export const ProductFitment: React.FC<ProductFitmentProps> = ({
 
   if (vehicles.length === 0) {
     return (
-      <div id={`fitment-${product.id}`} className={`text-xs text-neutral-400 ${className}`}>
-        <strong className="font-bold text-white">Suitable for: </strong>Standard {product.voltage} systems and compatible installations.
+      <div id={`fitment-${product.id}`} className={`text-xs text-[#667085] line-clamp-1 ${className}`}>
+        <strong className="font-semibold text-[#172033]">Fits: </strong>Standard {product.voltage} systems
       </div>
     );
   }
@@ -26,10 +26,10 @@ export const ProductFitment: React.FC<ProductFitmentProps> = ({
   const hasMore = vehicles.length > maxItems;
 
   return (
-    <div id={`fitment-${product.id}`} className={`text-xs text-neutral-300 leading-relaxed ${className}`}>
-      <strong className="font-bold text-white">Suitable for: </strong>
-      <span className="text-neutral-300">{displayedList}</span>
-      {hasMore && <span className="text-neutral-400"> & more</span>}
+    <div id={`fitment-${product.id}`} className={`text-xs text-[#667085] line-clamp-1 leading-snug ${className}`}>
+      <strong className="font-semibold text-[#172033]">Fits: </strong>
+      <span>{displayedList}</span>
+      {hasMore && <span className="text-[#94A3B8]"> & more</span>}
     </div>
   );
 };

@@ -22,7 +22,7 @@ export const SITE_CONFIG: SiteConfig = {
   },
   googleMapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.885448332158!2d77.59129977507664!3d12.97919838733698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin',
   googleMapsDirectionsUrl: 'https://maps.google.com/?q=PowerMax+Battery+Solutions',
-  primaryColorHex: '#DC2626', // High impact automotive red accent
+  primaryColorHex: '#DC2626', // PowerMax brand red accent
   stats: {
     yearsExperience: '14+',
     happyCustomers: '45,000+',

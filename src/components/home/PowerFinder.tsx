@@ -9,15 +9,11 @@ import {
   Zap,
   Truck,
   Sun,
-  ShieldCheck,
   RotateCcw,
   CheckCircle2,
   Sparkles,
-  ArrowRight,
-  HelpCircle,
   MessageCircle,
 } from 'lucide-react';
-import { QUICK_CONTACT_LINKS } from '../../config/siteConfig';
 
 interface PowerFinderProps {
   onSelectProduct: (product: Product) => void;
@@ -67,7 +63,7 @@ export const PowerFinder: React.FC<PowerFinderProps> = ({
 
   // Recommended product resolution
   const recommendedProduct = useMemo(() => {
-    const targetId = currentModelData?.recommendedProductId || 'amaron-hi-life-din-55';
+    const targetId = currentModelData?.recommendedProductId || 'amaron-hilife-pro-din55';
     return PRODUCTS_DATA.find((p) => p.id === targetId) || PRODUCTS_DATA[0];
   }, [currentModelData]);
 
@@ -79,7 +75,6 @@ export const PowerFinder: React.FC<PowerFinderProps> = ({
     { id: 'Truck', label: 'Commercial Truck', icon: Truck },
     { id: 'Tractor', label: 'Tractor / Agri', icon: Truck },
     { id: 'Auto Rickshaw', label: 'Auto Rickshaw / EV', icon: Zap },
-    { id: 'UPS', label: 'Industrial UPS', icon: Zap },
   ];
 
   const handleTypeChange = (type: string) => {
@@ -97,253 +92,187 @@ export const PowerFinder: React.FC<PowerFinderProps> = ({
   };
 
   return (
-    <section id="power-finder" className="py-20 bg-neutral-900 border-b border-neutral-800 relative overflow-hidden">
-      {/* Background Accent Gradients */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-amber-600/5 rounded-full blur-3xl pointer-events-none" />
-
+    <section id="power-finder" className="py-20 bg-[#F8FAFC] border-b border-[#E2E8F0] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* SECTION HEADER */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono font-bold uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>SIGNATURE POWER FINDER</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF2F2] border border-[#DC2626]/20 text-[#DC2626] text-xs font-bold uppercase tracking-wider">
+            <Sparkles className="w-3.5 h-3.5 text-[#DC2626]" />
+            <span>Smart Battery Finder</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            FIND YOUR PERFECT BATTERY
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+            Find Your Exact Compatible Battery
           </h2>
-          <p className="text-sm sm:text-base text-neutral-300">
-            Select your vehicle make or application specifications below to instantly identify the exact OEM-matched battery capacity, dimensions, and warranty options.
+          <p className="text-sm sm:text-base text-[#64748B] font-medium">
+            Select your vehicle or application below to instantly discover genuine manufacturer-recommended batteries with exact capacity and fitment specifications.
           </p>
         </div>
 
-        {/* APPLICATION TYPE QUICK SELECTOR PILLS */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 custom-scrollbar justify-start lg:justify-center mb-8">
-          {vehicleTypeTabs.map((tab) => {
-            const Icon = tab.icon;
-            const isSelected = selectedType === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => handleTypeChange(tab.id)}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer shrink-0 ${
-                  isSelected
-                    ? 'bg-red-600 text-white shadow-lg shadow-red-600/30 border border-red-500 scale-105'
-                    : 'bg-neutral-950 text-neutral-300 hover:text-white hover:bg-neutral-800 border border-neutral-800'
-                }`}
-              >
-                <Icon className={`w-4 h-4 ${isSelected ? 'text-white' : 'text-neutral-400'}`} />
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* INTERACTIVE SELECTION GRID & RECOMMENDATION CARD */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        {/* MAIN FINDER CARD */}
+        <div className="bg-white rounded-3xl border border-[#E2E8F0] shadow-xs p-6 sm:p-8 lg:p-10">
           
-          {/* STEP-BY-STEP FILTER SELECTORS */}
-          <div className="lg:col-span-7 bg-neutral-950 p-6 sm:p-8 rounded-2xl border border-neutral-800 shadow-xl flex flex-col justify-between space-y-6">
-            <div className="space-y-6">
-              <div className="flex items-center justify-between border-b border-neutral-800 pb-4">
-                <div className="flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-red-500" />
-                  <h3 className="text-base font-bold text-white uppercase tracking-wider">
-                    Step 1: Choose Details
-                  </h3>
+          {/* 1. VEHICLE / APPLICATION TYPE SELECTOR TABS */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-4 custom-scrollbar mb-8">
+            {vehicleTypeTabs.map((tab) => {
+              const IconComp = tab.icon;
+              const isSelected = selectedType === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => handleTypeChange(tab.id)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
+                    isSelected
+                      ? 'bg-[#DC2626] text-white shadow-sm shadow-[#DC2626]/25'
+                      : 'bg-[#F8FAFC] text-[#64748B] hover:text-[#0F172A] hover:bg-[#F1F5F9] border border-[#E2E8F0]'
+                  }`}
+                >
+                  <IconComp className="w-4 h-4" />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* 2. THREE-STEP DROPDOWNS (LEFT 7 COLUMNS) */}
+            <div className="lg:col-span-7 space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                
+                {/* STEP 1: SELECT BRAND / MAKE */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#0F172A] flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-[#FEF2F2] text-[#DC2626] text-[10px] font-black flex items-center justify-center">1</span>
+                    <span>Make / Brand</span>
+                  </label>
+                  <select
+                    value={selectedBrand || availableBrands[0]?.name || ''}
+                    onChange={(e) => {
+                      setSelectedBrand(e.target.value);
+                      setSelectedModel('');
+                      setSelectedSpec('');
+                    }}
+                    className="w-full px-3.5 py-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm font-semibold text-[#0F172A] focus:outline-hidden focus:border-[#DC2626] cursor-pointer"
+                  >
+                    {availableBrands.map((b) => (
+                      <option key={b.name} value={b.name}>
+                        {b.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* STEP 2: SELECT MODEL */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#0F172A] flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-[#FEF2F2] text-[#DC2626] text-[10px] font-black flex items-center justify-center">2</span>
+                    <span>Model</span>
+                  </label>
+                  <select
+                    value={selectedModel || availableModels[0]?.name || ''}
+                    onChange={(e) => {
+                      setSelectedModel(e.target.value);
+                      setSelectedSpec('');
+                    }}
+                    className="w-full px-3.5 py-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm font-semibold text-[#0F172A] focus:outline-hidden focus:border-[#DC2626] cursor-pointer"
+                  >
+                    {availableModels.map((m) => (
+                      <option key={m.name} value={m.name}>
+                        {m.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* STEP 3: FUEL / SPEC / YEAR */}
+                <div className="space-y-1.5">
+                  <label className="text-xs font-bold text-[#0F172A] flex items-center gap-1.5">
+                    <span className="w-5 h-5 rounded-full bg-[#FEF2F2] text-[#DC2626] text-[10px] font-black flex items-center justify-center">3</span>
+                    <span>Variant / Fuel</span>
+                  </label>
+                  <select
+                    value={selectedSpec || availableSpecs[0] || ''}
+                    onChange={(e) => setSelectedSpec(e.target.value)}
+                    className="w-full px-3.5 py-3 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm font-semibold text-[#0F172A] focus:outline-hidden focus:border-[#DC2626] cursor-pointer"
+                  >
+                    {availableSpecs.map((spec) => (
+                      <option key={spec} value={spec}>
+                        {spec}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+              </div>
+
+              {/* Selection Summary */}
+              <div className="p-4 rounded-2xl bg-[#F8FAFC] border border-[#E2E8F0] flex flex-wrap items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#0F172A]">
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A]" />
+                  <span>
+                    Selected: {currentBrandData?.name} {currentModelData?.name} ({selectedSpec || availableSpecs[0] || 'Standard'})
+                  </span>
                 </div>
                 <button
                   onClick={handleReset}
-                  className="flex items-center gap-1 text-xs text-neutral-400 hover:text-red-400 transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-[#64748B] hover:text-[#0F172A] cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Reset All</span>
+                  <span>Reset Selection</span>
                 </button>
               </div>
-
-              {/* SELECT 1: BRAND */}
-              <div>
-                <label className="block text-xs font-mono uppercase text-neutral-400 mb-2">
-                  1. Select Brand / Category:
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                  {availableBrands.map((b) => {
-                    const isSelected = (selectedBrand || availableBrands[0]?.name) === b.name;
-                    return (
-                      <button
-                        key={b.name}
-                        onClick={() => {
-                          setSelectedBrand(b.name);
-                          setSelectedModel('');
-                          setSelectedSpec('');
-                        }}
-                        className={`p-3 rounded-xl text-left text-xs font-semibold transition-all border cursor-pointer ${
-                          isSelected
-                            ? 'bg-red-600/15 border-red-500 text-white font-bold'
-                            : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-neutral-700 hover:text-white'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="truncate">{b.name}</span>
-                          {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-red-500 shrink-0" />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* SELECT 2: MODEL */}
-              <div>
-                <label className="block text-xs font-mono uppercase text-neutral-400 mb-2">
-                  2. Select Vehicle / System Model:
-                </label>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                  {availableModels.map((m) => {
-                    const isSelected = (selectedModel || availableModels[0]?.name) === m.name;
-                    return (
-                      <button
-                        key={m.name}
-                        onClick={() => {
-                          setSelectedModel(m.name);
-                          setSelectedSpec('');
-                        }}
-                        className={`p-3 rounded-xl text-left text-xs font-medium transition-all border cursor-pointer ${
-                          isSelected
-                            ? 'bg-red-600/15 border-red-500 text-white font-bold'
-                            : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-neutral-700 hover:text-white'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="truncate">{m.name}</span>
-                          {isSelected && <CheckCircle2 className="w-3.5 h-3.5 text-red-500 shrink-0" />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* SELECT 3: YEAR OR SPEC */}
-              {availableSpecs.length > 0 && (
-                <div>
-                  <label className="block text-xs font-mono uppercase text-neutral-400 mb-2">
-                    3. Generation / Specification Sub-Variant:
-                  </label>
-                  <div className="flex flex-wrap gap-2">
-                    {availableSpecs.map((spec) => {
-                      const isSelected = (selectedSpec || availableSpecs[0]) === spec;
-                      return (
-                        <button
-                          key={spec}
-                          onClick={() => setSelectedSpec(spec)}
-                          className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-all cursor-pointer ${
-                            isSelected
-                              ? 'bg-amber-400 text-neutral-950 border-amber-300 font-bold'
-                              : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:border-neutral-700'
-                          }`}
-                        >
-                          {spec}
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              )}
             </div>
 
-            {/* Assistance callout */}
-            <div className="pt-4 border-t border-neutral-800 flex items-center justify-between text-xs text-neutral-400">
-              <div className="flex items-center gap-2">
-                <HelpCircle className="w-4 h-4 text-neutral-500" />
-                <span>Can't locate your model? We stock 100+ vehicle variants.</span>
-              </div>
-              <a
-                href={QUICK_CONTACT_LINKS.callUrl}
-                className="text-red-400 font-bold hover:underline"
-              >
-                Call Specialist
-              </a>
-            </div>
-          </div>
-
-          {/* RECOMMENDED BATTERY SHOWCASE CARD */}
-          <div className="lg:col-span-5 bg-gradient-to-b from-neutral-950 to-neutral-900 p-6 sm:p-8 rounded-2xl border border-red-500/30 shadow-2xl flex flex-col justify-between relative overflow-hidden">
-            {/* Top Match Tag */}
-            <div className="flex items-center justify-between border-b border-neutral-800 pb-4 mb-4">
-              <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-mono font-bold flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                EXACT FIT RECOMMENDED
-              </span>
-              <span className="text-xs font-mono text-neutral-400">
-                {recommendedProduct.modelCode}
-              </span>
-            </div>
-
-            {/* Real Product Photograph Render */}
-            <div className="my-auto py-3 flex items-center justify-center">
-              <ProductImage
-                product={recommendedProduct}
-                aspectRatio="4/3"
-                className="h-56 sm:h-64 w-full bg-transparent border-0"
-              />
-            </div>
-
-            {/* Product Details & Specs */}
-            <div className="space-y-4 pt-4 border-t border-neutral-800">
-              <div>
-                <div className="text-xs font-mono uppercase text-red-400 font-bold">
-                  {recommendedProduct.brand} • {recommendedProduct.category}
-                </div>
-                <h4 className="text-xl font-bold text-white tracking-tight">
-                  {recommendedProduct.name}
-                </h4>
+            {/* 3. RECOMMENDED BATTERY CARD (RIGHT 5 COLUMNS) */}
+            <div className="lg:col-span-5 bg-[#F8FAFC] rounded-2xl border border-[#E2E8F0] p-5 sm:p-6 space-y-4">
+              <div className="flex items-center justify-between">
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#DC2626] bg-[#FEF2F2] px-2.5 py-1 rounded-full border border-[#DC2626]/20">
+                  Recommended Fitment
+                </span>
+                <span className="text-xs font-bold text-[#0F172A]">{recommendedProduct.warrantyMonths}M Warranty</span>
               </div>
 
-              {/* Spec Highlights Grid */}
-              <div className="grid grid-cols-3 gap-2 bg-neutral-900/80 p-3 rounded-xl border border-neutral-800 text-center">
-                <div>
-                  <span className="text-[10px] font-mono text-neutral-400 block">VOLTAGE</span>
-                  <span className="text-xs sm:text-sm font-bold text-white">{recommendedProduct.voltage}</span>
-                </div>
-                <div className="border-x border-neutral-800">
-                  <span className="text-[10px] font-mono text-neutral-400 block">CAPACITY</span>
-                  <span className="text-xs sm:text-sm font-bold text-amber-400">{recommendedProduct.capacity}</span>
+              <div className="flex items-center gap-4">
+                <div className="w-28 h-24 bg-white rounded-xl border border-[#E2E8F0] p-1 flex items-center justify-center shrink-0">
+                  <ProductImage
+                    product={recommendedProduct}
+                    aspectRatio="square"
+                    className="h-full w-full bg-transparent border-0"
+                    priority={false}
+                  />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-neutral-400 block">WARRANTY</span>
-                  <span className="text-xs sm:text-sm font-bold text-emerald-400">{recommendedProduct.warrantyMonths}M</span>
+                  <h4 className="text-sm font-bold text-[#0F172A] leading-snug">
+                    {recommendedProduct.name}
+                  </h4>
+                  <p className="text-xs text-[#64748B] font-semibold mt-1">
+                    {recommendedProduct.capacity} • {recommendedProduct.voltage} • {recommendedProduct.brand}
+                  </p>
+                  <p className="text-[11px] text-[#16A34A] font-bold mt-1">
+                    ✓ OEM Certified Fitment
+                  </p>
                 </div>
               </div>
 
-              {/* Action Buttons */}
-              <div className="grid grid-cols-2 gap-3 pt-2">
+              <div className="pt-2 grid grid-cols-2 gap-2">
                 <button
                   onClick={() => onSelectProduct(recommendedProduct)}
-                  className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+                  className="w-full py-2.5 px-3 rounded-xl border border-[#E2E8F0] text-[#0F172A] hover:bg-white font-bold text-xs transition-colors cursor-pointer shadow-xs"
                 >
-                  <span>View Product</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  View Details
                 </button>
-
                 <button
                   onClick={() => onOpenEnquiry(recommendedProduct)}
-                  className="flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-100 font-bold text-xs border border-neutral-700 transition-colors cursor-pointer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer flex items-center justify-center gap-1.5"
                 >
-                  <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Enquire Price</span>
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Enquire</span>
                 </button>
-              </div>
-
-              <div className="text-[11px] text-center text-neutral-400 flex items-center justify-center gap-1.5">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                <span>Includes Free Terminal Clamping & Alternator Check</span>
               </div>
             </div>
 
           </div>
-
         </div>
 
       </div>

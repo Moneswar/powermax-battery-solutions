@@ -1,7 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { PRODUCTS_DATA } from '../data/products';
-import { CATEGORIES_DATA } from '../data/categories';
-import { BRANDS_DATA } from '../data/brands';
 import { ProductCard } from '../components/products/ProductCard';
 import { ProductImage } from '../components/common/ProductImage';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
@@ -34,7 +32,6 @@ import {
   ChevronUp,
   Square,
   CheckSquare,
-  Sparkles,
 } from 'lucide-react';
 import { Modal } from '../components/common/Modal';
 
@@ -310,7 +307,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
         description="Browse genuine automotive, commercial, bike, and inverter batteries with doorstep delivery, express installation, and official brand warranties."
       />
 
-      <div id="products-page" className="min-h-screen bg-[#07090e] text-neutral-100 pt-24 pb-16">
+      <div id="products-page" className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumbs */}
@@ -320,68 +317,61 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
           />
 
           {/* PAGE HEADER: TITLE + COUNT + VIEW TOGGLES */}
-          <div className="py-6 border-b border-[#1a2232]">
+          <div className="py-6 border-b border-[#E2E8F0]">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
               <div>
-                <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-                  ALL BATTERIES
+                <h1 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+                  All Products
                 </h1>
-                <p className="text-sm sm:text-base text-neutral-300 mt-2 max-w-2xl">
-                  Explore reliable battery solutions for vehicles, homes, commercial and industrial applications.
+                <p className="text-sm sm:text-base text-[#64748B] mt-1.5 font-medium">
+                  Showing <strong className="text-[#0F172A]">{filteredProducts.length}</strong> authentic battery products
                 </p>
               </div>
 
-              {/* View & Count Controls */}
-              <div className="flex items-center gap-3 self-start md:self-end">
-                <span className="text-xs font-mono text-neutral-400">
-                  Showing <strong className="text-white font-bold">{filteredProducts.length}</strong> Products
-                </span>
-
-                {/* View Mode Toggle Buttons matching reference */}
-                <div className="flex items-center gap-1.5">
-                  <button
-                    onClick={() => setViewMode('grid')}
-                    className={`p-2 rounded-xl transition-all cursor-pointer ${
-                      viewMode === 'grid'
-                        ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
-                        : 'bg-[#0e131d] border border-[#1e2638] text-neutral-400 hover:text-white'
-                    }`}
-                    title="Grid View"
-                    aria-label="Grid View"
-                  >
-                    <LayoutGrid className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => setViewMode('list')}
-                    className={`p-2 rounded-xl transition-all cursor-pointer ${
-                      viewMode === 'list'
-                        ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
-                        : 'bg-[#0e131d] border border-[#1e2638] text-neutral-400 hover:text-white'
-                    }`}
-                    title="List View"
-                    aria-label="List View"
-                  >
-                    <List className="w-4 h-4" />
-                  </button>
-                </div>
+              {/* View Mode Toggle Buttons */}
+              <div className="flex items-center gap-1.5 self-start md:self-end">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2.5 rounded-xl transition-all cursor-pointer ${
+                    viewMode === 'grid'
+                      ? 'bg-[#DC2626] text-white shadow-sm shadow-[#DC2626]/25'
+                      : 'bg-white border border-[#E2E8F0] text-[#64748B] hover:text-[#0F172A]'
+                  }`}
+                  title="Grid View"
+                  aria-label="Grid View"
+                >
+                  <LayoutGrid className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2.5 rounded-xl transition-all cursor-pointer ${
+                    viewMode === 'list'
+                      ? 'bg-[#DC2626] text-white shadow-sm shadow-[#DC2626]/25'
+                      : 'bg-white border border-[#E2E8F0] text-[#64748B] hover:text-[#0F172A]'
+                  }`}
+                  title="List View"
+                  aria-label="List View"
+                >
+                  <List className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
             {/* SEARCH BAR & SORT BY ROW */}
             <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-3.5">
               <div className="lg:col-span-8 relative">
-                <Search className="w-4 h-4 text-neutral-500 absolute left-4 top-1/2 -translate-y-1/2" />
+                <Search className="w-4 h-4 text-[#64748B] absolute left-4 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search by battery model (e.g. DIN55, ML40B20L), car name (e.g. Swift, Creta), capacity (Ah), or brand..."
-                  className="w-full pl-11 pr-10 py-3.5 bg-[#0b0f17] border border-[#1d273a] rounded-2xl text-white placeholder-neutral-500 text-xs sm:text-sm focus:outline-hidden focus:border-red-500 transition-colors shadow-inner"
+                  placeholder="Search battery model (e.g. DIN55, ML40B20L), car name (e.g. Swift, Creta), capacity (Ah)..."
+                  className="w-full pl-11 pr-10 py-3 bg-white border border-[#E2E8F0] rounded-2xl text-[#0F172A] placeholder-[#94A3B8] text-xs sm:text-sm focus:outline-hidden focus:border-[#DC2626] transition-colors shadow-xs"
                 />
                 {searchQuery && (
                   <button
                     onClick={() => setSearchQuery('')}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white cursor-pointer"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-[#64748B] hover:text-[#0F172A] cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -394,28 +384,28 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   <select
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value as any)}
-                    className="w-full px-4 py-3.5 bg-[#0b0f17] border border-[#1d273a] rounded-2xl text-white text-xs sm:text-sm focus:outline-hidden focus:border-red-500 cursor-pointer appearance-none pr-10 font-medium"
+                    className="w-full px-4 py-3 bg-white border border-[#E2E8F0] rounded-2xl text-[#0F172A] text-xs sm:text-sm focus:outline-hidden focus:border-[#DC2626] cursor-pointer appearance-none pr-10 font-medium shadow-xs"
                   >
-                    <option value="featured">Sort by: Recommended & Featured</option>
+                    <option value="featured">Sort by: Popularity</option>
                     <option value="warranty">Sort by: Longest Warranty</option>
                     <option value="capacity">Sort by: Highest Capacity (Ah)</option>
-                    <option value="name">Sort by: Brand / Model Name (A-Z)</option>
+                    <option value="name">Sort by: Brand / Name (A-Z)</option>
                   </select>
-                  <SlidersHorizontal className="w-4 h-4 text-neutral-400 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <SlidersHorizontal className="w-4 h-4 text-[#64748B] absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
 
                 {/* Mobile Filter Trigger Button */}
                 <button
                   onClick={() => setIsMobileFilterOpen(true)}
-                  className="lg:hidden px-4 py-3.5 bg-[#0b0f17] border border-[#1d273a] rounded-2xl text-white text-xs sm:text-sm flex items-center gap-2 cursor-pointer shrink-0 font-medium"
+                  className="lg:hidden px-4 py-3 bg-white border border-[#E2E8F0] rounded-2xl text-[#0F172A] text-xs sm:text-sm flex items-center gap-2 cursor-pointer shrink-0 font-medium shadow-xs"
                 >
-                  <Filter className="w-4 h-4 text-red-500" />
+                  <Filter className="w-4 h-4 text-[#DC2626]" />
                   <span>Filters</span>
                 </button>
               </div>
             </div>
 
-            {/* HORIZONTAL CATEGORY PILL SCROLLER WITH ICONS MATCHING REFERENCE */}
+            {/* HORIZONTAL CATEGORY PILL SCROLLER */}
             <div className="mt-4 flex items-center gap-2 overflow-x-auto pb-2 custom-scrollbar">
               {categoryTabList.map((cat) => {
                 const IconComp = cat.icon;
@@ -426,11 +416,11 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                     onClick={() => setSelectedCategory(cat.id as any)}
                     className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
-                        : 'bg-[#0c1017] text-neutral-300 hover:text-white hover:bg-[#141b27] border border-[#1d273a]'
+                        ? 'bg-[#DC2626] text-white shadow-sm shadow-[#DC2626]/25'
+                        : 'bg-white text-[#64748B] hover:text-[#0F172A] hover:bg-[#F1F5F9] border border-[#E2E8F0]'
                     }`}
                   >
-                    <IconComp className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-neutral-400'}`} />
+                    <IconComp className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-[#64748B]'}`} />
                     <span>{cat.label}</span>
                   </button>
                 );
@@ -441,17 +431,17 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
           {/* MAIN TWO-COLUMN CONTENT AREA (FILTERS SIDEBAR + PRODUCTS GRID) */}
           <div className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
             
-            {/* DESKTOP SIDEBAR FILTERS ("Refine Catalogue") MATCHING REFERENCE EXACTLY */}
-            <div className="hidden lg:block lg:col-span-3 bg-[#0d121c]/90 p-5 rounded-3xl border border-[#1d273a] space-y-4 sticky top-28 backdrop-blur-md">
-              <div className="flex items-center justify-between pb-2 border-b border-[#1a2232]">
-                <div className="flex items-center gap-2 text-sm font-bold text-white">
-                  <Filter className="w-4 h-4 text-red-500" />
-                  <span>Refine Catalogue</span>
+            {/* DESKTOP SIDEBAR FILTERS */}
+            <div className="hidden lg:block lg:col-span-3 bg-white p-5 rounded-2xl border border-[#E2E8F0] space-y-4 sticky top-28 shadow-xs">
+              <div className="flex items-center justify-between pb-3 border-b border-[#F1F5F9]">
+                <div className="flex items-center gap-2 text-sm font-bold text-[#0F172A]">
+                  <Filter className="w-4 h-4 text-[#DC2626]" />
+                  <span>Categories & Filters</span>
                 </div>
                 {hasActiveFilters && (
                   <button
                     onClick={resetAllFilters}
-                    className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1 cursor-pointer font-medium"
+                    className="text-xs text-[#DC2626] hover:text-[#B91C1C] flex items-center gap-1 cursor-pointer font-bold"
                   >
                     <RotateCcw className="w-3 h-3" />
                     <span>Reset</span>
@@ -461,23 +451,23 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
               {/* Section 1: MANUFACTURER / BRAND */}
               <div>
-                <label className="block text-[11px] font-mono uppercase text-neutral-400 mb-2 font-bold tracking-wider">
-                  MANUFACTURER / BRAND
+                <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">
+                  Filter by Brand
                 </label>
-                <div className="space-y-1.5">
+                <div className="space-y-1">
                   <button
                     onClick={() => setSelectedBrand('All')}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                       selectedBrand === 'All'
-                        ? 'bg-red-600 text-white font-bold shadow-sm'
-                        : 'text-neutral-300 hover:bg-[#141a27] hover:text-white'
+                        ? 'bg-[#FEF2F2] text-[#DC2626] font-bold border border-[#DC2626]/20'
+                        : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      <LayoutGrid className="w-3.5 h-3.5" />
+                      <LayoutGrid className="w-3.5 h-3.5 text-[#64748B]" />
                       <span>All Brands</span>
                     </div>
-                    <span className={`text-[11px] font-mono px-2 py-0.5 rounded-md ${selectedBrand === 'All' ? 'bg-red-700 text-white' : 'text-neutral-400 bg-[#070a10]'}`}>
+                    <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${selectedBrand === 'All' ? 'bg-[#DC2626] text-white' : 'text-[#64748B] bg-[#F1F5F9]'}`}>
                       {PRODUCTS_DATA.length}
                     </span>
                   </button>
@@ -487,26 +477,36 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                       (p) => p.brand.toLowerCase() === b.name.toLowerCase()
                     ).length;
                     const isSelected = selectedBrand.toLowerCase() === b.name.toLowerCase();
+                    const brandLower = b.name.toLowerCase();
+
+                    let activeClass = 'bg-[#FEF2F2] text-[#DC2626] font-bold border border-[#DC2626]/20';
+                    let checkColor = 'text-[#DC2626]';
+                    if (brandLower.includes('amaron')) {
+                      activeClass = 'bg-[#16A34A]/10 text-[#16A34A] font-bold border border-[#16A34A]/20';
+                      checkColor = 'text-[#16A34A]';
+                    } else if (brandLower.includes('sf sonic')) {
+                      activeClass = 'bg-[#2563EB]/10 text-[#2563EB] font-bold border border-[#2563EB]/20';
+                      checkColor = 'text-[#2563EB]';
+                    }
+
                     return (
                       <button
                         key={b.id}
                         onClick={() => setSelectedBrand(isSelected ? 'All' : b.name)}
                         className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
-                          isSelected
-                            ? 'bg-[#141d2c] border border-red-500/50 text-white font-bold'
-                            : 'text-neutral-300 hover:bg-[#141a27] hover:text-white border border-transparent'
+                          isSelected ? activeClass : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                         }`}
                       >
                         <div className="flex items-center gap-2">
                           {isSelected ? (
-                            <CheckSquare className="w-3.5 h-3.5 text-red-500" />
+                            <CheckSquare className={`w-3.5 h-3.5 ${checkColor}`} />
                           ) : (
-                            <Square className="w-3.5 h-3.5 text-neutral-500" />
+                            <Square className="w-3.5 h-3.5 text-[#94A3B8]" />
                           )}
                           <span>{b.name}</span>
                         </div>
-                        <span className={`text-[11px] font-mono px-2 py-0.5 rounded-md ${isSelected ? 'text-red-400 bg-red-950/40' : 'text-neutral-400 bg-[#070a10]'}`}>
-                          {count}
+                        <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${isSelected ? 'bg-white border border-current' : 'text-[#64748B] bg-[#F1F5F9]'}`}>
+                          ({count})
                         </span>
                       </button>
                     );
@@ -515,15 +515,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
               </div>
 
               {/* Accordion 2: BATTERY TECHNOLOGY */}
-              <div className="border-t border-[#1a2232] pt-3">
+              <div className="border-t border-[#F1F5F9] pt-3">
                 <button
                   type="button"
                   onClick={() => toggleSection('tech')}
-                  className="w-full flex items-center justify-between text-[11px] font-mono uppercase text-neutral-400 hover:text-white font-bold tracking-wider cursor-pointer mb-2"
+                  className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#64748B] hover:text-[#0F172A] cursor-pointer mb-2"
                 >
                   <div className="flex items-center gap-1.5">
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>BATTERY TECHNOLOGY</span>
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-[#64748B]" />
+                    <span>Battery Technology</span>
                   </div>
                   {openSections.tech ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
@@ -532,7 +532,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                     <select
                       value={selectedTech}
                       onChange={(e) => setSelectedTech(e.target.value)}
-                      className="w-full px-3 py-2.5 bg-[#070a10] border border-[#1d273a] rounded-xl text-white text-xs focus:outline-hidden focus:border-red-500 cursor-pointer appearance-none pr-8 font-medium"
+                      className="w-full px-3 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-[#0F172A] text-xs focus:outline-hidden focus:border-[#DC2626] cursor-pointer appearance-none pr-8 font-medium"
                     >
                       {technologies.map((t) => (
                         <option key={t} value={t}>
@@ -540,21 +540,21 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                         </option>
                       ))}
                     </select>
-                    <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <SlidersHorizontal className="w-3.5 h-3.5 text-[#64748B] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   </div>
                 )}
               </div>
 
               {/* Accordion 3: VOLTAGE SYSTEM */}
-              <div className="border-t border-[#1a2232] pt-3">
+              <div className="border-t border-[#F1F5F9] pt-3">
                 <button
                   type="button"
                   onClick={() => toggleSection('voltage')}
-                  className="w-full flex items-center justify-between text-[11px] font-mono uppercase text-neutral-400 hover:text-white font-bold tracking-wider cursor-pointer mb-2"
+                  className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#64748B] hover:text-[#0F172A] cursor-pointer mb-2"
                 >
                   <div className="flex items-center gap-1.5">
-                    <Zap className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>VOLTAGE SYSTEM</span>
+                    <Zap className="w-3.5 h-3.5 text-[#64748B]" />
+                    <span>Voltage System</span>
                   </div>
                   {openSections.voltage ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
@@ -566,8 +566,8 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                         onClick={() => setSelectedVoltage(v)}
                         className={`py-1.5 rounded-lg text-[11px] font-bold text-center border transition-all cursor-pointer ${
                           selectedVoltage === v
-                            ? 'bg-red-600 border-red-500 text-white shadow-xs'
-                            : 'bg-[#070a10] border-[#1d273a] text-neutral-300 hover:border-neutral-700'
+                            ? 'bg-[#DC2626] border-[#DC2626] text-white shadow-xs'
+                            : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#64748B] hover:text-[#0F172A]'
                         }`}
                       >
                         {v}
@@ -578,15 +578,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
               </div>
 
               {/* Accordion 4: CAPACITY (Ah) */}
-              <div className="border-t border-[#1a2232] pt-3">
+              <div className="border-t border-[#F1F5F9] pt-3">
                 <button
                   type="button"
                   onClick={() => toggleSection('capacity')}
-                  className="w-full flex items-center justify-between text-[11px] font-mono uppercase text-neutral-400 hover:text-white font-bold tracking-wider cursor-pointer mb-2"
+                  className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#64748B] hover:text-[#0F172A] cursor-pointer mb-2"
                 >
                   <div className="flex items-center gap-1.5">
-                    <Shield className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>CAPACITY (Ah)</span>
+                    <Shield className="w-3.5 h-3.5 text-[#64748B]" />
+                    <span>Capacity (Ah)</span>
                   </div>
                   {openSections.capacity ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
@@ -613,12 +613,12 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                           onClick={() => setSelectedCapacityRange(rng.value)}
                           className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-red-600 text-white font-bold shadow-sm'
-                              : 'text-neutral-300 hover:bg-[#141a27] hover:text-white'
+                              ? 'bg-[#FEF2F2] text-[#DC2626] font-bold border border-[#DC2626]/20'
+                              : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                           }`}
                         >
                           <span>{rng.label}</span>
-                          <span className={`text-[10px] font-mono px-1.5 py-0.2 rounded ${isSelected ? 'bg-red-700 text-white' : 'text-neutral-500'}`}>
+                          <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${isSelected ? 'bg-white text-[#DC2626] border border-[#DC2626]/20' : 'text-[#64748B] bg-[#F1F5F9]'}`}>
                             {count}
                           </span>
                         </button>
@@ -628,16 +628,16 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 )}
               </div>
 
-              {/* Accordion 5: CCA (Cold Cranking Amps) */}
-              <div className="border-t border-[#1a2232] pt-3">
+              {/* Accordion 5: CCA */}
+              <div className="border-t border-[#F1F5F9] pt-3">
                 <button
                   type="button"
                   onClick={() => toggleSection('cca')}
-                  className="w-full flex items-center justify-between text-[11px] font-mono uppercase text-neutral-400 hover:text-white font-bold tracking-wider cursor-pointer mb-2"
+                  className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#64748B] hover:text-[#0F172A] cursor-pointer mb-2"
                 >
                   <div className="flex items-center gap-1.5">
-                    <Zap className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>CCA (Cold Cranking Amps)</span>
+                    <Zap className="w-3.5 h-3.5 text-[#64748B]" />
+                    <span>CCA (Cold Cranking)</span>
                   </div>
                   {openSections.cca ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
@@ -651,12 +651,12 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                           onClick={() => setMinCca(opt.value)}
                           className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-red-600 text-white font-bold'
-                              : 'text-neutral-300 hover:bg-[#141a27] hover:text-white'
+                              ? 'bg-[#FEF2F2] text-[#DC2626] font-bold border border-[#DC2626]/20'
+                              : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                           }`}
                         >
                           <span>{opt.label}</span>
-                          {isSelected && <Check className="w-3.5 h-3.5 stroke-[2.5]" />}
+                          {isSelected && <Check className="w-3.5 h-3.5 text-[#DC2626]" />}
                         </button>
                       );
                     })}
@@ -665,15 +665,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
               </div>
 
               {/* Accordion 6: APPLICATION */}
-              <div className="border-t border-[#1a2232] pt-3">
+              <div className="border-t border-[#F1F5F9] pt-3">
                 <button
                   type="button"
                   onClick={() => toggleSection('application')}
-                  className="w-full flex items-center justify-between text-[11px] font-mono uppercase text-neutral-400 hover:text-white font-bold tracking-wider cursor-pointer mb-2"
+                  className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#64748B] hover:text-[#0F172A] cursor-pointer mb-2"
                 >
                   <div className="flex items-center gap-1.5">
-                    <Car className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>APPLICATION</span>
+                    <Car className="w-3.5 h-3.5 text-[#64748B]" />
+                    <span>Application</span>
                   </div>
                   {openSections.application ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
@@ -693,15 +693,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                           onClick={() => setSelectedApplication(isSelected ? 'All' : app.id)}
                           className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-red-600 text-white font-bold'
-                              : 'text-neutral-300 hover:bg-[#141a27] hover:text-white'
+                              ? 'bg-[#FEF2F2] text-[#DC2626] font-bold border border-[#DC2626]/20'
+                              : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                           }`}
                         >
                           <div className="flex items-center gap-2">
-                            <IconComp className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-neutral-400'}`} />
+                            <IconComp className={`w-3.5 h-3.5 ${isSelected ? 'text-[#DC2626]' : 'text-[#64748B]'}`} />
                             <span>{app.label}</span>
                           </div>
-                          <span className={`text-[10px] font-mono ${isSelected ? 'text-white' : 'text-neutral-500'}`}>
+                          <span className={`text-[10px] font-bold ${isSelected ? 'text-[#DC2626]' : 'text-[#94A3B8]'}`}>
                             {count}
                           </span>
                         </button>
@@ -712,15 +712,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
               </div>
 
               {/* Accordion 7: WARRANTY */}
-              <div className="border-t border-[#1a2232] pt-3">
+              <div className="border-t border-[#F1F5F9] pt-3">
                 <button
                   type="button"
                   onClick={() => toggleSection('warranty')}
-                  className="w-full flex items-center justify-between text-[11px] font-mono uppercase text-neutral-400 hover:text-white font-bold tracking-wider cursor-pointer mb-2"
+                  className="w-full flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-[#64748B] hover:text-[#0F172A] cursor-pointer mb-2"
                 >
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>WARRANTY</span>
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#64748B]" />
+                    <span>Warranty</span>
                   </div>
                   {openSections.warranty ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
                 </button>
@@ -734,12 +734,12 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                           onClick={() => setMinWarranty(opt.value)}
                           className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer ${
                             isSelected
-                              ? 'bg-[#f59e0b] text-neutral-950 font-bold shadow-sm'
-                              : 'text-neutral-300 hover:bg-[#141a27] hover:text-white'
+                              ? 'bg-[#FEF2F2] text-[#DC2626] font-bold border border-[#DC2626]/20'
+                              : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                           }`}
                         >
                           <span>{opt.label}</span>
-                          {isSelected && <Check className="w-3.5 h-3.5 stroke-[2.5]" />}
+                          {isSelected && <Check className="w-3.5 h-3.5 text-[#DC2626]" />}
                         </button>
                       );
                     })}
@@ -747,13 +747,13 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 )}
               </div>
 
-              {/* Clear All Filters Action matching reference button */}
-              <div className="pt-3 border-t border-[#1a2232]">
+              {/* Clear All Filters Action */}
+              <div className="pt-3 border-t border-[#F1F5F9]">
                 <button
                   onClick={resetAllFilters}
-                  className="w-full py-2.5 rounded-xl bg-[#070a10] hover:bg-[#111724] border border-[#1d273a] hover:border-red-500/50 text-neutral-300 hover:text-white text-xs font-semibold transition-all cursor-pointer flex items-center justify-center gap-2"
+                  className="w-full py-2.5 rounded-xl bg-[#F8FAFC] hover:bg-[#F1F5F9] border border-[#E2E8F0] text-[#0F172A] text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
                 >
-                  <RotateCcw className="w-3.5 h-3.5" />
+                  <RotateCcw className="w-3.5 h-3.5 text-[#64748B]" />
                   <span>Clear All Filters</span>
                 </button>
               </div>
@@ -763,17 +763,17 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
             {/* PRODUCT RESULTS GRID (3-COLUMN ON DESKTOP, 2 ON TABLET, 1 ON MOBILE) */}
             <div className="lg:col-span-9">
               {filteredProducts.length === 0 ? (
-                <div className="text-center py-20 bg-[#0d121c]/90 rounded-3xl border border-[#1d273a] space-y-4">
-                  <div className="w-16 h-16 rounded-full bg-[#131926] flex items-center justify-center mx-auto text-neutral-500">
+                <div className="text-center py-20 bg-white rounded-3xl border border-[#E2E8F0] space-y-4 shadow-xs">
+                  <div className="w-16 h-16 rounded-full bg-[#FEF2F2] flex items-center justify-center mx-auto text-[#DC2626]">
                     <Search className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-bold text-white">No Matching Batteries Found</h3>
-                  <p className="text-xs text-neutral-400 max-w-sm mx-auto">
+                  <h3 className="text-xl font-bold text-[#0F172A]">No Matching Batteries Found</h3>
+                  <p className="text-xs text-[#64748B] max-w-sm mx-auto font-medium">
                     Try adjusting your search query or reset some filters to view our full catalogue of authentic batteries.
                   </p>
                   <button
                     onClick={resetAllFilters}
-                    className="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+                    className="px-5 py-2.5 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
                   >
                     Reset All Filters
                   </button>
@@ -804,12 +804,12 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                     return (
                       <div
                         key={product.id}
-                        className="bg-[#0d121c]/90 p-5 rounded-3xl border border-[#1d273a] hover:border-neutral-700 transition-all flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg"
+                        className="bg-white p-5 rounded-2xl border border-[#E2E8F0] hover:border-[#DC2626]/40 transition-all flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs hover:shadow-md"
                       >
                         <div className="flex items-center gap-5 w-full md:w-auto">
                           <div
                             onClick={() => onSelectProduct(product)}
-                            className="w-28 h-28 bg-[#070a10] rounded-2xl border border-[#1d273a] flex items-center justify-center cursor-pointer shrink-0 p-2"
+                            className="w-28 h-28 bg-[#F8FAFC] rounded-xl border border-[#E2E8F0] flex items-center justify-center cursor-pointer shrink-0 p-2"
                           >
                             <ProductImage
                               product={product}
@@ -819,23 +819,23 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                           </div>
                           <div>
                             <div className="flex items-center gap-2">
-                              <span className="text-xs font-mono uppercase font-bold text-red-400">{product.brand}</span>
-                              <span className="px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-[10px] font-bold">
+                              <span className="text-xs font-bold text-[#DC2626] bg-[#FEF2F2] px-2 py-0.5 rounded-md">{product.brand}</span>
+                              <span className="px-2.5 py-0.5 rounded-full bg-[#F1F5F9] text-[#0F172A] text-[10px] font-bold border border-[#E2E8F0]">
                                 {product.warrantyMonths}M Warranty
                               </span>
                             </div>
                             <h3
                               onClick={() => onSelectProduct(product)}
-                              className="text-lg font-bold text-white hover:text-red-400 cursor-pointer transition-colors mt-0.5"
+                              className="text-base font-bold text-[#0F172A] hover:text-[#DC2626] cursor-pointer transition-colors mt-1"
                             >
                               {product.name}
                             </h3>
-                            <p className="text-xs text-neutral-400 mt-1 font-mono">
+                            <p className="text-xs text-[#64748B] mt-1 font-semibold">
                               {product.voltage} • {product.capacity} • {product.technology} {product.cca ? `• ${product.cca}` : ''}
                             </p>
                             {product.suitableVehicles && product.suitableVehicles.length > 0 && (
-                              <p className="text-[11px] text-neutral-400 mt-1 line-clamp-1">
-                                <strong className="text-neutral-300 font-semibold">Suitable for: </strong>
+                              <p className="text-[11px] text-[#64748B] mt-1 line-clamp-1">
+                                <strong className="text-[#0F172A] font-semibold">Fits: </strong>
                                 {product.suitableVehicles.slice(0, 3).join(', ')}...
                               </p>
                             )}
@@ -845,10 +845,10 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                         <div className="flex items-center gap-3 w-full md:w-auto justify-end">
                           <button
                             onClick={() => toggleCompare(product)}
-                            className={`p-3 rounded-xl border text-xs font-bold transition-colors cursor-pointer ${
+                            className={`p-2.5 rounded-xl border text-xs font-bold transition-colors cursor-pointer ${
                               isComparing
-                                ? 'bg-amber-500/20 border-amber-500 text-amber-300'
-                                : 'bg-[#070a10] border-[#1d273a] text-neutral-400 hover:text-white'
+                                ? 'bg-[#FEF2F2] border-[#DC2626] text-[#DC2626]'
+                                : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#64748B] hover:text-[#0F172A]'
                             }`}
                             title="Compare"
                           >
@@ -856,13 +856,13 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                           </button>
                           <button
                             onClick={() => onSelectProduct(product)}
-                            className="px-5 py-3 rounded-xl bg-[#111724] hover:bg-[#182133] text-white font-bold text-xs border border-[#1d273a] transition-colors cursor-pointer"
+                            className="px-4 py-2.5 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#0F172A] font-bold text-xs border border-[#E2E8F0] transition-colors cursor-pointer"
                           >
                             Details
                           </button>
                           <button
                             onClick={() => onOpenEnquiry(product)}
-                            className="px-5 py-3 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs shadow-md transition-colors cursor-pointer flex items-center gap-1.5"
+                            className="px-4 py-2.5 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold text-xs shadow-xs transition-colors cursor-pointer flex items-center gap-1.5"
                           >
                             <MessageCircle className="w-3.5 h-3.5" />
                             <span>Enquire</span>
@@ -877,48 +877,43 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
           </div>
 
-          {/* BOTTOM TRUST BADGE BAR MATCHING REFERENCE IMAGE */}
-          <div className="mt-12 pt-8 border-t border-[#1a2232]">
+          {/* BOTTOM TRUST BADGE BAR */}
+          <div className="mt-12 pt-8 border-t border-[#E2E8F0]">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 text-center sm:text-left">
               
-              {/* Badge 1: 100% Genuine Products */}
               <div className="flex items-center justify-center sm:justify-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-red-600/10 border border-red-500/20 flex items-center justify-center shrink-0 text-red-500 shadow-[0_0_12px_rgba(239,68,68,0.15)]">
+                <div className="w-10 h-10 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 flex items-center justify-center shrink-0 text-[#DC2626]">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-bold text-white tracking-tight">100% Genuine Products</span>
+                <span className="text-xs font-bold text-[#0F172A] tracking-tight">100% Genuine Products</span>
               </div>
 
-              {/* Badge 2: Best Price Guaranteed */}
               <div className="flex items-center justify-center sm:justify-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-red-600/10 border border-red-500/20 flex items-center justify-center shrink-0 text-red-500 shadow-[0_0_12px_rgba(239,68,68,0.15)]">
+                <div className="w-10 h-10 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 flex items-center justify-center shrink-0 text-[#DC2626]">
                   <CircleDollarSign className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-bold text-white tracking-tight">Best Price Guaranteed</span>
+                <span className="text-xs font-bold text-[#0F172A] tracking-tight">Best Price Guaranteed</span>
               </div>
 
-              {/* Badge 3: 36+ Months Warranty */}
               <div className="flex items-center justify-center sm:justify-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-red-600/10 border border-red-500/20 flex items-center justify-center shrink-0 text-red-500 shadow-[0_0_12px_rgba(239,68,68,0.15)]">
+                <div className="w-10 h-10 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 flex items-center justify-center shrink-0 text-[#DC2626]">
                   <Shield className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-bold text-white tracking-tight">36+ Months Warranty</span>
+                <span className="text-xs font-bold text-[#0F172A] tracking-tight">36+ Months Warranty</span>
               </div>
 
-              {/* Badge 4: Fast Delivery */}
               <div className="flex items-center justify-center sm:justify-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-red-600/10 border border-red-500/20 flex items-center justify-center shrink-0 text-red-500 shadow-[0_0_12px_rgba(239,68,68,0.15)]">
+                <div className="w-10 h-10 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 flex items-center justify-center shrink-0 text-[#DC2626]">
                   <Truck className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-bold text-white tracking-tight">Fast Delivery</span>
+                <span className="text-xs font-bold text-[#0F172A] tracking-tight">Fast Doorstep Delivery</span>
               </div>
 
-              {/* Badge 5: Expert Support */}
               <div className="flex items-center justify-center sm:justify-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-red-600/10 border border-red-500/20 flex items-center justify-center shrink-0 text-red-500 shadow-[0_0_12px_rgba(239,68,68,0.15)]">
+                <div className="w-10 h-10 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 flex items-center justify-center shrink-0 text-[#DC2626]">
                   <Headphones className="w-5 h-5" />
                 </div>
-                <span className="text-xs font-bold text-white tracking-tight">Expert Support</span>
+                <span className="text-xs font-bold text-[#0F172A] tracking-tight">Expert Local Support</span>
               </div>
 
             </div>
@@ -929,17 +924,17 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
       {/* FLOATING PRODUCT COMPARISON BAR */}
       {compareList.length > 0 && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-[#0d121c]/95 border border-red-500/50 backdrop-blur-xl rounded-2xl shadow-2xl p-4 flex items-center gap-4 animate-in slide-in-from-bottom-4">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 bg-white/95 border border-[#DC2626]/40 backdrop-blur-xl rounded-2xl shadow-xl p-4 flex items-center gap-4 animate-in slide-in-from-bottom-4">
           <div className="flex items-center gap-2">
-            <ArrowLeftRight className="w-5 h-5 text-red-500" />
-            <span className="text-xs font-bold text-white">
+            <ArrowLeftRight className="w-5 h-5 text-[#DC2626]" />
+            <span className="text-xs font-bold text-[#0F172A]">
               {compareList.length} / 3 Batteries Selected
             </span>
           </div>
 
           <div className="hidden sm:flex items-center gap-2">
             {compareList.map((p) => (
-              <span key={p.id} className="text-xs px-2.5 py-1 rounded bg-[#070a10] border border-[#1d273a] text-neutral-300">
+              <span key={p.id} className="text-xs px-2.5 py-1 rounded-lg bg-[#F8FAFC] border border-[#E2E8F0] text-[#0F172A] font-medium">
                 {p.brand} {p.name.split(' ')[0]}
               </span>
             ))}
@@ -947,13 +942,13 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
           <button
             onClick={() => setIsCompareModalOpen(true)}
-            className="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
           >
             Compare Specs
           </button>
           <button
             onClick={() => setCompareList([])}
-            className="text-xs text-neutral-400 hover:text-white cursor-pointer"
+            className="text-xs text-[#64748B] hover:text-[#0F172A] font-semibold cursor-pointer"
           >
             Clear
           </button>
@@ -962,15 +957,15 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
 
       {/* MOBILE DRAWER FILTERS */}
       {isMobileFilterOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden bg-neutral-950/95 backdrop-blur-xl p-6 overflow-y-auto">
-          <div className="flex items-center justify-between pb-4 border-b border-neutral-800">
-            <div className="flex items-center gap-2 text-sm font-bold text-white">
-              <Filter className="w-4 h-4 text-red-500" />
+        <div className="fixed inset-0 z-50 lg:hidden bg-white/98 backdrop-blur-xl p-6 overflow-y-auto">
+          <div className="flex items-center justify-between pb-4 border-b border-[#E2E8F0]">
+            <div className="flex items-center gap-2 text-sm font-bold text-[#0F172A]">
+              <Filter className="w-4 h-4 text-[#DC2626]" />
               <span>Refine Catalogue</span>
             </div>
             <button
               onClick={() => setIsMobileFilterOpen(false)}
-              className="p-2 text-neutral-400 hover:text-white"
+              className="p-2 text-[#64748B] hover:text-[#0F172A]"
             >
               <X className="w-5 h-5" />
             </button>
@@ -979,8 +974,8 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
           <div className="py-6 space-y-6">
             {/* Mobile Brand Filter */}
             <div>
-              <label className="block text-[11px] font-mono uppercase text-neutral-400 mb-2 font-bold">
-                MANUFACTURER / BRAND
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">
+                Manufacturer / Brand
               </label>
               <div className="space-y-1">
                 <button
@@ -989,7 +984,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                     setIsMobileFilterOpen(false);
                   }}
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold ${
-                    selectedBrand === 'All' ? 'bg-red-600 text-white font-bold' : 'text-neutral-300 hover:bg-[#141a27]'
+                    selectedBrand === 'All' ? 'bg-[#FEF2F2] text-[#DC2626] font-bold' : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                   }`}
                 >
                   <span>All Brands</span>
@@ -1006,11 +1001,11 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                         setIsMobileFilterOpen(false);
                       }}
                       className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold ${
-                        isSelected ? 'bg-red-600 text-white font-bold' : 'text-neutral-300 hover:bg-[#141a27]'
+                        isSelected ? 'bg-[#FEF2F2] text-[#DC2626] font-bold' : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                       }`}
                     >
                       <span>{b.name}</span>
-                      <span>{count}</span>
+                      <span>({count})</span>
                     </button>
                   );
                 })}
@@ -1018,9 +1013,9 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
             </div>
 
             {/* Mobile Tech Filter */}
-            <div className="border-t border-[#1a2232] pt-4">
-              <label className="block text-[11px] font-mono uppercase text-neutral-400 mb-2 font-bold">
-                BATTERY TECHNOLOGY
+            <div className="border-t border-[#E2E8F0] pt-4">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">
+                Battery Technology
               </label>
               <select
                 value={selectedTech}
@@ -1028,7 +1023,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                   setSelectedTech(e.target.value);
                   setIsMobileFilterOpen(false);
                 }}
-                className="w-full px-3 py-2.5 bg-[#070a10] border border-[#1d273a] rounded-xl text-white text-xs font-medium"
+                className="w-full px-3 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-[#0F172A] text-xs font-medium"
               >
                 {technologies.map((t) => (
                   <option key={t} value={t}>{t}</option>
@@ -1037,9 +1032,9 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
             </div>
 
             {/* Mobile Voltage Filter */}
-            <div className="border-t border-[#1a2232] pt-4">
-              <label className="block text-[11px] font-mono uppercase text-neutral-400 mb-2 font-bold">
-                VOLTAGE SYSTEM
+            <div className="border-t border-[#E2E8F0] pt-4">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">
+                Voltage System
               </label>
               <div className="grid grid-cols-5 gap-1.5">
                 {voltages.map((v) => (
@@ -1050,7 +1045,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                       setIsMobileFilterOpen(false);
                     }}
                     className={`py-2 rounded-xl text-xs font-bold border text-center ${
-                      selectedVoltage === v ? 'bg-red-600 border-red-500 text-white' : 'bg-[#070a10] border-[#1d273a] text-neutral-300'
+                      selectedVoltage === v ? 'bg-[#DC2626] border-[#DC2626] text-white' : 'bg-[#F8FAFC] border-[#E2E8F0] text-[#0F172A]'
                     }`}
                   >
                     {v}
@@ -1060,9 +1055,9 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
             </div>
 
             {/* Mobile Capacity Filter */}
-            <div className="border-t border-[#1a2232] pt-4">
-              <label className="block text-[11px] font-mono uppercase text-neutral-400 mb-2 font-bold">
-                CAPACITY (Ah)
+            <div className="border-t border-[#E2E8F0] pt-4">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">
+                Capacity (Ah)
               </label>
               <div className="space-y-1">
                 {capacityRanges.map((rng) => (
@@ -1073,7 +1068,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                       setIsMobileFilterOpen(false);
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold ${
-                      selectedCapacityRange === rng.value ? 'bg-red-600 text-white font-bold' : 'text-neutral-300 hover:bg-[#141a27]'
+                      selectedCapacityRange === rng.value ? 'bg-[#FEF2F2] text-[#DC2626] font-bold' : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                     }`}
                   >
                     <span>{rng.label}</span>
@@ -1083,9 +1078,9 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
             </div>
 
             {/* Mobile Warranty Filter */}
-            <div className="border-t border-[#1a2232] pt-4">
-              <label className="block text-[11px] font-mono uppercase text-neutral-400 mb-2 font-bold">
-                MINIMUM WARRANTY
+            <div className="border-t border-[#E2E8F0] pt-4">
+              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#64748B] mb-2">
+                Minimum Warranty
               </label>
               <div className="space-y-1.5">
                 {warrantyOptions.map((opt) => (
@@ -1096,30 +1091,30 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                       setIsMobileFilterOpen(false);
                     }}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold ${
-                      minWarranty === opt.value ? 'bg-[#f59e0b] text-neutral-950 font-bold' : 'text-neutral-300 hover:bg-[#141a27]'
+                      minWarranty === opt.value ? 'bg-[#FEF2F2] text-[#DC2626] font-bold' : 'text-[#0F172A] hover:bg-[#F8FAFC]'
                     }`}
                   >
                     <span>{opt.label}</span>
-                    {minWarranty === opt.value && <Check className="w-3.5 h-3.5" />}
+                    {minWarranty === opt.value && <Check className="w-3.5 h-3.5 text-[#DC2626]" />}
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Mobile Actions */}
-            <div className="pt-4 border-t border-[#1a2232] space-y-2">
+            <div className="pt-4 border-t border-[#E2E8F0] space-y-2">
               <button
                 onClick={() => {
                   resetAllFilters();
                   setIsMobileFilterOpen(false);
                 }}
-                className="w-full py-3 rounded-xl bg-[#070a10] border border-[#1d273a] text-neutral-300 font-bold text-xs"
+                className="w-full py-3 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-[#0F172A] font-bold text-xs"
               >
                 Reset All Filters
               </button>
               <button
                 onClick={() => setIsMobileFilterOpen(false)}
-                className="w-full py-3 rounded-xl bg-red-600 text-white font-bold text-xs shadow-md"
+                className="w-full py-3 rounded-xl bg-[#DC2626] text-white font-bold text-xs shadow-sm"
               >
                 Show {filteredProducts.length} Results
               </button>
@@ -1138,19 +1133,19 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
         <div className="overflow-x-auto custom-scrollbar">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="border-b border-neutral-800">
-                <th className="p-3 text-neutral-400 font-mono uppercase">Attribute</th>
+              <tr className="border-b border-[#E2E8F0]">
+                <th className="p-3 text-[#64748B] font-bold uppercase">Attribute</th>
                 {compareList.map((p) => (
-                  <th key={p.id} className="p-3 text-white font-bold min-w-[200px]">
-                    <div className="text-xs font-mono text-red-400">{p.brand}</div>
-                    <div className="text-sm font-bold">{p.name}</div>
+                  <th key={p.id} className="p-3 text-[#0F172A] font-bold min-w-[200px]">
+                    <div className="text-xs text-[#DC2626] font-bold">{p.brand}</div>
+                    <div className="text-sm font-bold text-[#0F172A]">{p.name}</div>
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-neutral-800 text-neutral-300">
+            <tbody className="divide-y divide-[#E2E8F0] text-[#0F172A]">
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Product Image</td>
+                <td className="p-3 font-semibold text-[#64748B]">Product Image</td>
                 {compareList.map((p) => (
                   <td key={p.id} className="p-3">
                     <ProductImage product={p} aspectRatio="square" className="h-28 w-28 mx-auto" />
@@ -1158,51 +1153,51 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Voltage</td>
+                <td className="p-3 font-semibold text-[#64748B]">Voltage</td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-3 font-bold text-white">{p.voltage}</td>
+                  <td key={p.id} className="p-3 font-bold text-[#0F172A]">{p.voltage}</td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Capacity (Ah)</td>
+                <td className="p-3 font-semibold text-[#64748B]">Capacity (Ah)</td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-3 font-bold text-amber-400">{p.capacity}</td>
+                  <td key={p.id} className="p-3 font-bold text-[#DC2626]">{p.capacity}</td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Cold Cranking Amps (CCA)</td>
+                <td className="p-3 font-semibold text-[#64748B]">Cold Cranking Amps (CCA)</td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-3 text-white">{p.cca || 'N/A (Non-Cranking)'}</td>
+                  <td key={p.id} className="p-3 text-[#0F172A]">{p.cca || 'N/A (Non-Cranking)'}</td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Technology</td>
+                <td className="p-3 font-semibold text-[#64748B]">Technology</td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-3 text-white">{p.technology}</td>
+                  <td key={p.id} className="p-3 text-[#0F172A]">{p.technology}</td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Official Warranty</td>
+                <td className="p-3 font-semibold text-[#64748B]">Official Warranty</td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-3 font-bold text-emerald-400">
+                  <td key={p.id} className="p-3 font-bold text-[#16A34A]">
                     {p.warrantyMonths} Months ({p.warrantyDetails})
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Dimensions</td>
+                <td className="p-3 font-semibold text-[#64748B]">Dimensions</td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-3 font-mono text-neutral-300">{p.dimensions}</td>
+                  <td key={p.id} className="p-3 font-mono text-[#64748B]">{p.dimensions}</td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Terminal Layout</td>
+                <td className="p-3 font-semibold text-[#64748B]">Terminal Layout</td>
                 {compareList.map((p) => (
-                  <td key={p.id} className="p-3 text-neutral-300">{p.terminalLayout}</td>
+                  <td key={p.id} className="p-3 text-[#64748B]">{p.terminalLayout}</td>
                 ))}
               </tr>
               <tr>
-                <td className="p-3 font-semibold text-neutral-400">Actions</td>
+                <td className="p-3 font-semibold text-[#64748B]">Actions</td>
                 {compareList.map((p) => (
                   <td key={p.id} className="p-3">
                     <button
@@ -1210,7 +1205,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({
                         setIsCompareModalOpen(false);
                         onOpenEnquiry(p);
                       }}
-                      className="w-full py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs"
+                      className="w-full py-2.5 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold text-xs transition-colors"
                     >
                       Enquire Now
                     </button>

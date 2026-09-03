@@ -1,5 +1,5 @@
 import React from 'react';
-import { Zap, Battery, Gauge, Layers, ShieldCheck, Check } from 'lucide-react';
+import { Zap, Battery, Gauge, Layers, ShieldCheck } from 'lucide-react';
 import { Product } from '../../types';
 
 interface ProductSpecsProps {
@@ -10,37 +10,16 @@ interface ProductSpecsProps {
 export const ProductSpecs: React.FC<ProductSpecsProps> = ({ product, className = '' }) => {
   const brandLower = product.brand.toLowerCase();
 
-  // Determine strip border accent matching reference cards
-  let stripBorderClass = 'border-[#1a2232] bg-[#070a10]/95';
-  let iconColor = 'text-emerald-400';
+  let iconColor = 'text-[#2E8B35]';
 
   if (brandLower.includes('amaron')) {
-    stripBorderClass = 'border-[#22c55e]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#22c55e]';
+    iconColor = 'text-[#2E8B35]';
   } else if (brandLower.includes('exide')) {
-    stripBorderClass = 'border-[#ef4444]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#ef4444]';
-  } else if (brandLower.includes('bosch')) {
-    stripBorderClass = 'border-[#3b82f6]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#38bdf8]';
-  } else if (brandLower.includes('luminous')) {
-    stripBorderClass = 'border-[#00e5ff]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#00e5ff]';
+    iconColor = 'text-[#DC2626]';
   } else if (brandLower.includes('sf sonic') || brandLower.includes('sf-sonic')) {
-    stripBorderClass = 'border-[#3b82f6]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#3b82f6]';
-  } else if (brandLower.includes('okaya')) {
-    stripBorderClass = 'border-[#10b981]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#10b981]';
-  } else if (brandLower.includes('livguard')) {
-    stripBorderClass = 'border-[#f59e0b]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#f59e0b]';
-  } else if (brandLower.includes('microtek')) {
-    stripBorderClass = 'border-[#dc2626]/25 bg-[#05080e]/95';
-    iconColor = 'text-[#dc2626]';
+    iconColor = 'text-[#2563EB]';
   }
 
-  // Format 3rd and 4th column according to battery category / CCA availability
   const hasCca = Boolean(product.cca);
   
   const thirdCol = {
@@ -59,55 +38,55 @@ export const ProductSpecs: React.FC<ProductSpecsProps> = ({ product, className =
   return (
     <div
       id={`specs-strip-${product.id}`}
-      className={`w-full rounded-2xl border p-2.5 sm:p-3 shadow-inner transition-colors duration-300 ${stripBorderClass} ${className}`}
+      className={`w-full rounded-xl border border-[#E5E7EB] bg-[#F8FAFC] p-2 sm:p-2.5 transition-colors ${className}`}
     >
       <div className="grid grid-cols-4 gap-1 text-center items-center">
         
         {/* Column 1: VOLTAGE */}
         <div className="flex flex-col items-center justify-center">
           <div className="flex items-center gap-1">
-            <Zap className={`w-3.5 h-3.5 ${iconColor}`} />
-            <span className="text-xs sm:text-[13px] font-bold text-white tracking-tight">
+            <Zap className={`w-3 h-3 ${iconColor}`} />
+            <span className="text-xs sm:text-[13px] font-bold text-[#172033] tracking-tight">
               {product.voltage}
             </span>
           </div>
-          <span className="text-[10px] text-neutral-400 font-medium mt-0.5 tracking-tight">
+          <span className="text-[10px] text-[#667085] font-medium mt-0.5 tracking-tight">
             Voltage
           </span>
         </div>
 
         {/* Column 2: CAPACITY */}
-        <div className="flex flex-col items-center justify-center border-l border-neutral-800/60">
+        <div className="flex flex-col items-center justify-center border-l border-[#E2E8F0]">
           <div className="flex items-center gap-1">
-            <Battery className={`w-3.5 h-3.5 ${iconColor}`} />
-            <span className="text-xs sm:text-[13px] font-bold text-white tracking-tight">
+            <Battery className={`w-3 h-3 ${iconColor}`} />
+            <span className="text-xs sm:text-[13px] font-bold text-[#172033] tracking-tight">
               {product.capacity}
             </span>
           </div>
-          <span className="text-[10px] text-neutral-400 font-medium mt-0.5 tracking-tight">
+          <span className="text-[10px] text-[#667085] font-medium mt-0.5 tracking-tight">
             Capacity
           </span>
         </div>
 
         {/* Column 3: CCA or Rating */}
-        <div className="flex flex-col items-center justify-center border-l border-neutral-800/60">
+        <div className="flex flex-col items-center justify-center border-l border-[#E2E8F0]">
           <div className="flex items-center gap-1">
             {thirdCol.isCca ? (
-              <Zap className={`w-3.5 h-3.5 ${iconColor}`} />
+              <Zap className={`w-3 h-3 ${iconColor}`} />
             ) : (
-              <Gauge className={`w-3.5 h-3.5 ${iconColor}`} />
+              <Gauge className={`w-3 h-3 ${iconColor}`} />
             )}
-            <span className="text-xs sm:text-[13px] font-bold text-white tracking-tight">
+            <span className="text-xs sm:text-[13px] font-bold text-[#172033] tracking-tight truncate max-w-[55px]">
               {thirdCol.value}
             </span>
           </div>
-          <span className="text-[10px] text-neutral-400 font-medium mt-0.5 tracking-tight">
+          <span className="text-[10px] text-[#667085] font-medium mt-0.5 tracking-tight">
             {thirdCol.label}
           </span>
         </div>
 
         {/* Column 4: TYPE / TECHNOLOGY */}
-        <div className="flex flex-col items-center justify-center border-l border-neutral-800/60">
+        <div className="flex flex-col items-center justify-center border-l border-[#E2E8F0]">
           <div className="flex items-center gap-1">
             {product.technology === 'AGM' ? (
               <span className={`text-xs sm:text-[13px] font-bold ${iconColor} leading-none`}>
@@ -115,20 +94,20 @@ export const ProductSpecs: React.FC<ProductSpecsProps> = ({ product, className =
               </span>
             ) : product.technology === 'Maintenance Free' ? (
               <>
-                <ShieldCheck className={`w-3.5 h-3.5 ${iconColor}`} />
-                <span className="text-xs sm:text-[13px] font-bold text-white tracking-tight">MF</span>
+                <ShieldCheck className={`w-3 h-3 ${iconColor}`} />
+                <span className="text-xs sm:text-[13px] font-bold text-[#172033] tracking-tight">MF</span>
               </>
             ) : (
               <>
-                <Layers className={`w-3.5 h-3.5 ${iconColor}`} />
-                <span className="text-xs sm:text-[13px] font-bold text-white tracking-tight truncate max-w-[62px]">
+                <Layers className={`w-3 h-3 ${iconColor}`} />
+                <span className="text-xs sm:text-[13px] font-bold text-[#172033] tracking-tight truncate max-w-[55px]">
                   {formatTechDisplay()}
                 </span>
               </>
             )}
           </div>
-          <span className="text-[10px] text-neutral-400 font-medium mt-0.5 tracking-tight">
-            {hasCca ? 'Type' : 'Technology'}
+          <span className="text-[10px] text-[#667085] font-medium mt-0.5 tracking-tight">
+            {hasCca ? 'Type' : 'Tech'}
           </span>
         </div>
 

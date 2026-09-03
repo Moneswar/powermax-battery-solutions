@@ -90,7 +90,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 flex flex-col font-sans selection:bg-red-600 selection:text-white antialiased">
+    <div className="min-h-screen bg-[#F7F9F7] text-[#172033] flex flex-col font-sans selection:bg-[#2E8B35] selection:text-white antialiased">
       {/* GLOBAL NAVBAR */}
       <Navbar
         activePage={currentPage}

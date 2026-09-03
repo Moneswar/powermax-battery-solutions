@@ -1,13 +1,13 @@
 import React from 'react';
 import { Hero } from '../components/home/Hero';
+import { BrandShowcase } from '../components/home/BrandShowcase';
 import { PowerFinder } from '../components/home/PowerFinder';
 import { CategoryShowcase } from '../components/home/CategoryShowcase';
-import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { FeaturedProducts } from '../components/home/FeaturedProducts';
-import { BatteryDnaSection } from '../components/home/BatteryDnaSection';
-import { BrandShowcase } from '../components/home/BrandShowcase';
-import { PowerJourney } from '../components/home/PowerJourney';
+import { WhyChooseUs } from '../components/home/WhyChooseUs';
 import { HomeServices } from '../components/home/HomeServices';
+import { BatteryDnaSection } from '../components/home/BatteryDnaSection';
+import { PowerJourney } from '../components/home/PowerJourney';
 import { HomeContactCta } from '../components/home/HomeContactCta';
 import { Product, Service, BatteryCategory } from '../types';
 import { SeoHead } from '../components/common/SeoHead';
@@ -35,7 +35,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   return (
     <>
       <SeoHead />
-      <div id="home-page" className="w-full">
+      <div id="home-page" className="w-full bg-[#F7F9F7]">
         {/* 1. Hero Section */}
         <Hero
           onExploreProducts={() => onNavigate('products')}
@@ -43,49 +43,49 @@ export const HomePage: React.FC<HomePageProps> = ({
           onContactClick={() => onNavigate('contact')}
         />
 
-        {/* 2. Signature Experience 1: Power Finder */}
+        {/* 2. Trusted Brands Showcase (Amaron, Exide, SF Sonic) */}
+        <BrandShowcase
+          onSelectBrand={(brandName) => onNavigate('products', { brand: brandName })}
+          onViewAllBrands={() => onNavigate('brands')}
+        />
+
+        {/* 3. Signature Power Finder */}
         <PowerFinder
           onSelectProduct={onSelectProduct}
           onOpenEnquiry={(p) => onOpenEnquiry(p, null)}
         />
 
-        {/* 3. Category Showcase Grid */}
+        {/* 4. Product Categories Grid */}
         <CategoryShowcase
           onSelectCategory={(cat) => onNavigate('products', { category: cat })}
           onViewAllProducts={() => onNavigate('products')}
         />
 
-        {/* 4. Why Choose Us / Trust Pillars */}
-        <WhyChooseUs />
-
-        {/* 5. Featured In-Demand Batteries */}
+        {/* 5. Featured High-Demand Batteries */}
         <FeaturedProducts
           onSelectProduct={onSelectProduct}
           onOpenEnquiry={(p) => onOpenEnquiry(p, null)}
           onViewAll={() => onNavigate('products')}
         />
 
-        {/* 6. Signature Experience 2: Battery DNA / Inside the Cell */}
-        <BatteryDnaSection />
+        {/* 6. Why Choose PowerMax Trust Pillars */}
+        <WhyChooseUs />
 
-        {/* 7. Brand Showcase Strip */}
-        <BrandShowcase
-          onSelectBrand={(brandName) => onNavigate('products', { brand: brandName })}
-          onViewAllBrands={() => onNavigate('brands')}
-        />
-
-        {/* 8. Signature Experience 3: The 4-Step Power Journey */}
-        <PowerJourney
-          onStartJourney={() => onNavigate('services')}
-        />
-
-        {/* 9. Full Services Summary */}
+        {/* 7. Complete Battery Services */}
         <HomeServices
           onSelectService={onSelectService}
           onViewAllServices={() => onNavigate('services')}
         />
 
-        {/* 10. Home Contact / Showroom Callout */}
+        {/* 8. Battery Chemistry & Engineering DNA */}
+        <BatteryDnaSection />
+
+        {/* 9. The 4-Step Power Journey */}
+        <PowerJourney
+          onStartJourney={() => onNavigate('services')}
+        />
+
+        {/* 10. Home Contact / Quick Callback CTA */}
         <HomeContactCta
           onContactClick={() => onNavigate('contact')}
           onOpenEnquiry={() => onOpenEnquiry(null, null)}

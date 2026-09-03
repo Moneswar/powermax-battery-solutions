@@ -44,29 +44,29 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({
   };
 
   return (
-    <section id="categories-section" className="py-20 bg-neutral-950 border-b border-neutral-800 relative">
+    <section id="categories-section" className="py-20 bg-white border-b border-[#E2E8F0] relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-mono font-bold uppercase tracking-widest mb-3">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>DEDICATED POWER DOMAINS</span>
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FEF2F2] border border-[#DC2626]/20 text-[#DC2626] text-xs font-bold uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-[#DC2626]" />
+              <span>Dedicated Power Categories</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-              POWER FOR EVERY APPLICATION
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+              Batteries For Every Need
             </h2>
-            <p className="text-sm sm:text-base text-neutral-300 mt-2 max-w-xl">
-              From everyday city commutes to high-capacity industrial power banks, explore precision-engineered batteries designed for peak performance.
+            <p className="text-sm sm:text-base text-[#64748B] mt-2 max-w-xl font-medium">
+              From everyday personal transport to heavy industrial & inverter power backup, browse precision-engineered batteries.
             </p>
           </div>
 
           <button
             onClick={onViewAllProducts}
-            className="inline-flex items-center gap-2 text-sm font-bold text-red-400 hover:text-red-300 group cursor-pointer"
+            className="inline-flex items-center gap-2 text-sm font-bold text-[#DC2626] hover:text-[#B91C1C] group cursor-pointer"
           >
-            <span>Explore All Products</span>
+            <span>Explore All Batteries</span>
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
@@ -79,43 +79,34 @@ export const CategoryShowcase: React.FC<CategoryShowcaseProps> = ({
               <div
                 key={cat.id}
                 onClick={() => onSelectCategory(cat.id)}
-                className="group relative bg-neutral-900/90 border border-neutral-800 hover:border-red-500/50 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-red-600/10 flex flex-col justify-between cursor-pointer overflow-hidden"
+                className="group relative bg-[#F8FAFC] border border-[#E2E8F0] hover:border-[#DC2626]/40 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-md flex flex-col justify-between cursor-pointer overflow-hidden"
               >
-                {/* Top Accent Gradient Bar */}
-                <div
-                  className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${cat.colorAccent} opacity-80 group-hover:opacity-100 transition-opacity`}
-                />
-
                 <div className="space-y-4">
                   {/* Icon & Count */}
                   <div className="flex items-center justify-between">
-                    <div className="w-12 h-12 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-center text-red-500 group-hover:bg-red-600 group-hover:text-white transition-colors duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-[#FEF2F2] border border-[#DC2626]/20 flex items-center justify-center text-[#DC2626] group-hover:bg-[#DC2626] group-hover:text-white transition-colors duration-300">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-[11px] font-mono font-bold text-neutral-300 px-2.5 py-1 rounded-full bg-neutral-950 border border-neutral-800">
-                      {cat.badgeCount} Models
+                    <span className="text-[11px] font-bold text-[#64748B] px-2.5 py-1 rounded-full bg-white border border-[#E2E8F0]">
+                      {cat.badgeCount || 10}+ Models
                     </span>
                   </div>
 
-                  {/* Title & Description */}
                   <div>
-                    <h3 className="text-lg font-bold text-white tracking-tight group-hover:text-red-400 transition-colors">
+                    <h3 className="text-base font-bold text-[#0F172A] group-hover:text-[#DC2626] transition-colors">
                       {cat.title}
                     </h3>
-                    <p className="text-xs text-neutral-300 mt-2 leading-relaxed line-clamp-2">
+                    <p className="text-xs text-[#64748B] mt-1.5 leading-relaxed line-clamp-2 font-medium">
                       {cat.shortDesc}
                     </p>
                   </div>
                 </div>
 
-                {/* Bottom Technical Spec Highlight & Link */}
-                <div className="pt-5 mt-4 border-t border-neutral-800/80 flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-neutral-300 truncate max-w-[170px]">
-                    {cat.highlightSpecs}
-                  </span>
-                  <div className="w-7 h-7 rounded-full bg-neutral-950 border border-neutral-800 flex items-center justify-center text-neutral-400 group-hover:text-red-400 group-hover:border-red-500/40 transition-colors shrink-0">
+                <div className="pt-4 mt-4 border-t border-[#E2E8F0] flex items-center justify-between">
+                  <span className="text-xs font-bold text-[#DC2626] group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                    <span>Browse Range</span>
                     <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
+                  </span>
                 </div>
               </div>
             );

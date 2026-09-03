@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   Zap,
   Navigation,
+  Sparkles,
 } from 'lucide-react';
 
 interface ContactPageProps {
@@ -65,7 +66,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
         description={`Get in touch with ${SITE_CONFIG.businessName}. Call ${SITE_CONFIG.phone} or visit our battery diagnostics showroom in ${SITE_CONFIG.city}. Open 7 days a week.`}
       />
 
-      <div id="contact-page" className="min-h-screen bg-neutral-950 text-neutral-100 pt-24 pb-20">
+      <div id="contact-page" className="min-h-screen bg-[#F7F9F7] text-[#172033] pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumbs */}
@@ -75,34 +76,34 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
           />
 
           {/* PAGE HERO BANNER */}
-          <div className="py-10 border-b border-neutral-800 space-y-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-600/10 border border-red-500/30 text-red-400 text-xs font-mono font-bold uppercase tracking-widest">
-              <Zap className="w-3.5 h-3.5" />
-              <span>DIRECT TECHNICAL HOTLINE</span>
+          <div className="py-10 border-b border-[#E5E7EB] space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EAF6EA] border border-[#2E8B35]/25 text-[#1F6B2A] text-xs font-bold uppercase tracking-wider">
+              <Sparkles className="w-3.5 h-3.5 text-[#2E8B35]" />
+              <span>Direct Customer Support & Dispatch</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
-              CONNECT WITH OUR <br />
-              <span className="text-red-500">BATTERY SPECIALISTS.</span>
+            <h1 className="text-3xl sm:text-5xl font-black text-[#172033] tracking-tight">
+              Connect with Our <br />
+              <span className="text-[#2E8B35]">Battery Specialists.</span>
             </h1>
-            <p className="text-sm sm:text-base text-neutral-300 max-w-3xl leading-relaxed">
+            <p className="text-sm sm:text-base text-[#667085] max-w-3xl leading-relaxed font-medium">
               Whether you need urgent emergency jumpstart assistance, doorstep installation, inverter load audits, or battery exchange valuation, our team is standing by.
             </p>
           </div>
 
           {/* QUICK DIRECT CONTACT CARDS */}
-          <div className="py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-b border-neutral-800">
+          <div className="py-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 border-b border-[#E5E7EB]">
             {/* 1. Phone Card */}
-            <div className="bg-neutral-900/80 p-6 rounded-2xl border border-neutral-800 space-y-3 flex flex-col justify-between">
+            <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-3 flex flex-col justify-between shadow-xs">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-red-600/20 text-red-400 flex items-center justify-center mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[#EAF6EA] text-[#2E8B35] flex items-center justify-center mb-3">
                   <Phone className="w-5 h-5" />
                 </div>
-                <h3 className="text-sm font-bold text-white uppercase font-mono">Direct Phone Call</h3>
-                <p className="text-xs text-neutral-400 mt-1">Instant voice assistance & technician dispatch</p>
+                <h3 className="text-sm font-bold text-[#172033] uppercase">Direct Call</h3>
+                <p className="text-xs text-[#667085] mt-1">Instant voice assistance & technician dispatch</p>
               </div>
               <a
                 href={QUICK_CONTACT_LINKS.callUrl}
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-red-400 hover:text-red-300 pt-2"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2E8B35] hover:text-[#1F6B2A] pt-2"
               >
                 <span>{SITE_CONFIG.phoneDisplay}</span>
                 <span>→</span>
@@ -110,111 +111,106 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
             </div>
 
             {/* 2. WhatsApp Card */}
-            <div className="bg-neutral-900/80 p-6 rounded-2xl border border-neutral-800 space-y-3 flex flex-col justify-between">
+            <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-3 flex flex-col justify-between shadow-xs">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[#EAF6EA] text-[#2E8B35] flex items-center justify-center mb-3">
                   <MessageCircle className="w-5 h-5" />
                 </div>
-                <h3 className="text-sm font-bold text-white uppercase font-mono">WhatsApp Chat</h3>
-                <p className="text-xs text-neutral-400 mt-1">Send car photos, location pins & ask quotes</p>
+                <h3 className="text-sm font-bold text-[#172033] uppercase">WhatsApp Chat</h3>
+                <p className="text-xs text-[#667085] mt-1">Send car photos, location pins & ask quotes</p>
               </div>
               <a
                 href={QUICK_CONTACT_LINKS.whatsappUrl()}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-400 hover:text-emerald-300 pt-2"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2E8B35] hover:text-[#1F6B2A] pt-2"
               >
-                <span>Chat Now (Instant Reply)</span>
+                <span>Chat Online</span>
                 <span>→</span>
               </a>
             </div>
 
-            {/* 3. Showroom Location Card */}
-            <div className="bg-neutral-900/80 p-6 rounded-2xl border border-neutral-800 space-y-3 flex flex-col justify-between">
+            {/* 3. Email Card */}
+            <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-3 flex flex-col justify-between shadow-xs">
               <div>
-                <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[#EAF6EA] text-[#2E8B35] flex items-center justify-center mb-3">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <h3 className="text-sm font-bold text-[#172033] uppercase">Email Support</h3>
+                <p className="text-xs text-[#667085] mt-1">For corporate quotations and fleet audits</p>
+              </div>
+              <a
+                href={QUICK_CONTACT_LINKS.emailUrl()}
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2E8B35] hover:text-[#1F6B2A] pt-2 truncate"
+              >
+                <span className="truncate">{SITE_CONFIG.email}</span>
+                <span>→</span>
+              </a>
+            </div>
+
+            {/* 4. Showroom Location */}
+            <div className="bg-white p-6 rounded-2xl border border-[#E5E7EB] space-y-3 flex flex-col justify-between shadow-xs">
+              <div>
+                <div className="w-10 h-10 rounded-xl bg-[#EAF6EA] text-[#2E8B35] flex items-center justify-center mb-3">
                   <MapPin className="w-5 h-5" />
                 </div>
-                <h3 className="text-sm font-bold text-white uppercase font-mono">Diagnostics Hub</h3>
-                <p className="text-xs text-neutral-400 mt-1">{SITE_CONFIG.address}, {SITE_CONFIG.city}</p>
+                <h3 className="text-sm font-bold text-[#172033] uppercase">Store Location</h3>
+                <p className="text-xs text-[#667085] mt-1">Central Flyover, Bangalore</p>
               </div>
               <a
                 href={SITE_CONFIG.googleMapsDirectionsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-400 hover:text-blue-300 pt-2"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-[#2E8B35] hover:text-[#1F6B2A] pt-2"
               >
-                <span>Open in Google Maps</span>
+                <span>Get Directions</span>
                 <span>→</span>
               </a>
             </div>
-
-            {/* 4. Operating Hours Card */}
-            <div className="bg-neutral-900/80 p-6 rounded-2xl border border-neutral-800 space-y-3 flex flex-col justify-between">
-              <div>
-                <div className="w-10 h-10 rounded-xl bg-amber-600/20 text-amber-400 flex items-center justify-center mb-3">
-                  <Clock className="w-5 h-5" />
-                </div>
-                <h3 className="text-sm font-bold text-white uppercase font-mono">Operating Hours</h3>
-                <p className="text-xs text-neutral-400 mt-1">{SITE_CONFIG.openingHours.weekdays}</p>
-              </div>
-              <span className="text-xs font-mono text-emerald-400 pt-2">
-                Open 7 Days a Week
-              </span>
-            </div>
           </div>
 
-          {/* FORM & MAP / SHOWROOM ROW */}
-          <div className="py-16 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          {/* MAIN FORM & MAP SECTION */}
+          <div className="py-14 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             
-            {/* LEFT: INTERACTIVE CONTACT FORM */}
-            <div className="lg:col-span-7 bg-neutral-900/90 p-8 sm:p-10 rounded-3xl border border-neutral-800 shadow-2xl">
-              <h2 className="text-2xl font-bold text-white tracking-tight mb-2">
-                Send an Online Technical Enquiry
-              </h2>
-              <p className="text-xs sm:text-sm text-neutral-400 mb-6">
-                Fill in your details and vehicle/requirement. We will call you within 15 minutes with verified pricing and availability.
-              </p>
-
+            {/* LEFT: INTERACTIVE CONTACT & BOOKING FORM */}
+            <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-[#E5E7EB] shadow-xs">
               {isSubmitted ? (
-                <div className="py-12 text-center space-y-4 animate-in fade-in">
-                  <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40">
+                <div className="py-12 text-center space-y-4">
+                  <div className="w-16 h-16 bg-[#EAF6EA] text-[#2E8B35] rounded-full flex items-center justify-center mx-auto border border-[#2E8B35]/20">
                     <CheckCircle2 className="w-8 h-8" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Thank You, {formData.name}!</h3>
-                  <p className="text-sm text-neutral-300 max-w-md mx-auto">
-                    Your request has been routed to our field manager. We will contact you at{' '}
-                    <strong className="text-white">{formData.phone}</strong> shortly.
+                  <h3 className="text-2xl font-bold text-[#172033]">Booking Request Received!</h3>
+                  <p className="text-sm text-[#667085] max-w-md mx-auto">
+                    Thank you, <span className="font-bold text-[#172033]">{formData.name}</span>. Our technician will review your vehicle details and call you back immediately on <span className="font-bold text-[#172033]">{formData.phone}</span>.
                   </p>
                   <button
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setFormData({
-                        name: '',
-                        phone: '',
-                        email: '',
-                        vehicleOrModel: '',
-                        serviceType: 'Car Battery Replacement',
-                        message: '',
-                      });
-                    }}
-                    className="px-6 py-2.5 rounded-xl bg-neutral-800 text-neutral-200 text-xs font-bold hover:bg-neutral-700"
+                    onClick={() => setIsSubmitted(false)}
+                    className="px-6 py-2.5 rounded-xl bg-[#2E8B35] hover:bg-[#1F6B2A] text-white font-bold text-xs shadow-xs cursor-pointer"
                   >
-                    Send Another Enquiry
+                    Submit Another Request
                   </button>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  <div>
+                    <h2 className="text-xl font-bold text-[#172033]">
+                      Schedule a Service or Request Battery Quotation
+                    </h2>
+                    <p className="text-xs text-[#667085] mt-1 font-medium">
+                      Fill out your vehicle or battery details and our team will get back to you within 15 minutes.
+                    </p>
+                  </div>
+
                   {errorMsg && (
-                    <div className="p-3 bg-red-950/80 border border-red-800 text-red-300 text-xs rounded-xl">
+                    <div className="p-3 rounded-xl bg-[#FEE2E2] border border-[#DC2626]/20 text-[#991B1B] text-xs font-bold">
                       {errorMsg}
                     </div>
                   )}
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Your Full Name <span className="text-red-500">*</span>
+                      <label className="block text-xs font-bold text-[#172033] mb-1">
+                        Full Name <span className="text-[#DC2626]">*</span>
                       </label>
                       <input
                         type="text"
@@ -222,14 +218,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
                         required
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="e.g. Vikram Verma"
-                        className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-xs focus:outline-hidden focus:border-red-500 transition-colors"
+                        placeholder="e.g. Ramesh Kumar"
+                        className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm text-[#172033] focus:outline-hidden focus:border-[#2E8B35]"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Contact Phone <span className="text-red-500">*</span>
+                      <label className="block text-xs font-bold text-[#172033] mb-1">
+                        Phone Number <span className="text-[#DC2626]">*</span>
                       </label>
                       <input
                         type="tel"
@@ -238,14 +234,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="e.g. +91 98765 43210"
-                        className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-xs focus:outline-hidden focus:border-red-500 transition-colors"
+                        className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm text-[#172033] focus:outline-hidden focus:border-[#2E8B35]"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
+                      <label className="block text-xs font-bold text-[#172033] mb-1">
                         Email Address (Optional)
                       </label>
                       <input
@@ -253,146 +249,133 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigateHome }) => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="vikram@example.com"
-                        className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-xs focus:outline-hidden focus:border-red-500 transition-colors"
+                        placeholder="e.g. ramesh@example.com"
+                        className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm text-[#172033] focus:outline-hidden focus:border-[#2E8B35]"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                        Required Service
+                      <label className="block text-xs font-bold text-[#172033] mb-1">
+                        Service Required
                       </label>
                       <select
                         name="serviceType"
                         value={formData.serviceType}
                         onChange={handleChange}
-                        className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-xs focus:outline-hidden focus:border-red-500 transition-colors cursor-pointer"
+                        className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm text-[#172033] focus:outline-hidden focus:border-[#2E8B35] cursor-pointer"
                       >
-                        <option value="Car Battery Replacement">Car & SUV Battery Replacement</option>
-                        <option value="Bike Battery Replacement">Motorcycle / Scooter Battery</option>
-                        <option value="Inverter Battery Setup">Inverter & Tubular Battery Setup</option>
-                        <option value="Emergency Jumpstart">Emergency Roadside Jumpstart</option>
-                        <option value="Battery Health Testing">Free Digital Health Diagnosis</option>
-                        <option value="Commercial Fleet">Commercial Fleet / Truck Management</option>
-                        <option value="Solar Battery Sizing">Solar Rooftop Storage Sizing</option>
+                        <option value="Car Battery Replacement">Car Battery Doorstep Replacement</option>
+                        <option value="Bike Battery Replacement">Bike / Two-Wheeler Battery</option>
+                        <option value="Inverter Installation">Home Inverter & UPS Battery</option>
+                        <option value="Battery Health Diagnostics">Digital Health & CCA Testing</option>
+                        <option value="Emergency Jumpstart">Emergency Jump Start Assistance</option>
+                        <option value="Old Battery Exchange Scrap">Old Battery Scrap Exchange</option>
                       </select>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                      Vehicle Make / Model or Equipment Info
+                    <label className="block text-xs font-bold text-[#172033] mb-1">
+                      Vehicle Make / Model or Equipment Type
                     </label>
                     <input
                       type="text"
                       name="vehicleOrModel"
                       value={formData.vehicleOrModel}
                       onChange={handleChange}
-                      placeholder="e.g. Maruti Swift Dzire 2020 / Luminous 1100VA Inverter"
-                      className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-xs focus:outline-hidden focus:border-red-500 transition-colors"
+                      placeholder="e.g. Hyundai Creta Diesel 2021 / Exide Inva Tubular 150Ah"
+                      className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm text-[#172033] focus:outline-hidden focus:border-[#2E8B35]"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-neutral-300 mb-1">
-                      Location Details or Message
+                    <label className="block text-xs font-bold text-[#172033] mb-1">
+                      Location / Notes
                     </label>
                     <textarea
                       name="message"
                       rows={3}
                       value={formData.message}
                       onChange={handleChange}
-                      placeholder="Need doorstep installation near Koramangala / Asking exchange price for old 35Ah battery..."
-                      className="w-full px-3.5 py-2.5 bg-neutral-950 border border-neutral-700 rounded-xl text-white text-xs focus:outline-hidden focus:border-red-500 transition-colors resize-none"
+                      placeholder="Your area in Bangalore (e.g. Indiranagar, Whitefield, Koramangala)..."
+                      className="w-full px-3.5 py-2.5 bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl text-xs sm:text-sm text-[#172033] focus:outline-hidden focus:border-[#2E8B35]"
                     />
                   </div>
 
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-xl shadow-red-600/30 transition-all cursor-pointer disabled:opacity-50"
-                    >
-                      <Send className="w-4 h-4" />
-                      <span>{isSubmitting ? 'Transmitting...' : 'Submit Enquiry & Request Call'}</span>
-                    </button>
-                  </div>
-
-                  <div className="flex items-center justify-center gap-2 text-[11px] text-neutral-400 pt-1">
-                    <ShieldCheck className="w-3.5 h-3.5 text-neutral-500" />
-                    <span>Your contact info is strictly confidential and never shared.</span>
-                  </div>
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-3.5 px-6 rounded-xl bg-[#2E8B35] hover:bg-[#1F6B2A] text-white font-bold text-xs sm:text-sm shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>{isSubmitting ? 'Submitting...' : 'Send Request'}</span>
+                  </button>
                 </form>
               )}
             </div>
 
-            {/* RIGHT: MAP / SHOWROOM HUB DETAILS */}
+            {/* RIGHT: STORE HOURS & MAP INFORMATION */}
             <div className="lg:col-span-5 space-y-6">
-              {/* Map Placeholder Card with Real Navigation link */}
-              <div className="bg-neutral-900/90 p-6 rounded-3xl border border-neutral-800 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold text-white">Showroom & Service Center</h3>
-                  <span className="text-[10px] font-mono text-emerald-400 px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">
-                    Live Diagnostics Bay
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E5E7EB] space-y-5 shadow-xs">
+                <h3 className="text-lg font-bold text-[#172033] border-b border-[#F0F2F5] pb-3">
+                  Store Hours & Availability
+                </h3>
+
+                <div className="space-y-4 text-xs sm:text-sm">
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-[#2E8B35] shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-[#172033] block font-bold">Weekdays (Monday – Saturday)</strong>
+                      <span className="text-[#667085]">9:00 AM – 8:00 PM</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-[#2E8B35] shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-[#172033] block font-bold">Sundays & Public Holidays</strong>
+                      <span className="text-[#667085]">10:00 AM – 5:00 PM</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-3">
+                    <Zap className="w-5 h-5 text-[#2E8B35] shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-[#172033] block font-bold">Emergency Mobile Breakdown</strong>
+                      <span className="text-[#667085]">Emergency hotline dispatch available 24/7</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-[#F0F2F5] flex items-center justify-between">
+                  <span className="text-xs text-[#667085] font-semibold">Store Status</span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#EAF6EA] text-[#1F6B2A] text-xs font-bold border border-[#2E8B35]/20">
+                    Open Now
                   </span>
-                </div>
-
-                {/* Styled Map Graphic Canvas Placeholder */}
-                <div className="w-full h-48 bg-neutral-950 rounded-2xl border border-neutral-800 relative overflow-hidden flex flex-col items-center justify-center text-center p-4 bg-grid-pattern group">
-                  <div className="w-12 h-12 rounded-full bg-red-600/20 border border-red-500/50 flex items-center justify-center text-red-500 mb-2 group-hover:scale-110 transition-transform">
-                    <MapPin className="w-6 h-6 animate-bounce" />
-                  </div>
-                  <strong className="text-white text-xs block">{SITE_CONFIG.businessName}</strong>
-                  <span className="text-[11px] text-neutral-400">{SITE_CONFIG.address}, {SITE_CONFIG.city}</span>
-
-                  <a
-                    href={SITE_CONFIG.googleMapsDirectionsUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 text-white text-xs font-bold shadow-md hover:bg-red-500 transition-colors"
-                  >
-                    <Navigation className="w-3.5 h-3.5" />
-                    <span>Get Directions in Google Maps</span>
-                  </a>
-                </div>
-
-                <div className="space-y-2.5 text-xs text-neutral-300 pt-2">
-                  <div className="flex items-start gap-2.5">
-                    <MapPin className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white block">Physical Store Address</strong>
-                      <span className="text-neutral-400">{SITE_CONFIG.address}, {SITE_CONFIG.landmark}, {SITE_CONFIG.city} - {SITE_CONFIG.pincode}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <Clock className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white block">Showroom Timings</strong>
-                      <span className="text-neutral-400">{SITE_CONFIG.openingHours.weekdays} | {SITE_CONFIG.openingHours.sunday}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-2.5">
-                    <Mail className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white block">Email Correspondence</strong>
-                      <a href={`mailto:${SITE_CONFIG.email}`} className="text-neutral-400 hover:text-white">
-                        {SITE_CONFIG.email}
-                      </a>
-                    </div>
-                  </div>
                 </div>
               </div>
 
-              {/* Service Areas Callout */}
-              <div className="bg-neutral-900/60 p-6 rounded-3xl border border-neutral-800 space-y-2 text-xs">
-                <span className="text-[10px] font-mono uppercase text-red-400 font-bold block">
-                  Rapid Doorstep Delivery Areas:
-                </span>
-                <p className="text-neutral-300 leading-relaxed">
-                  We provide 30-minute doorstep battery delivery and fitting across all major zones including Koramangala, Indiranagar, HSR Layout, Whitefield, Jayanagar, Electronic City, and surrounding metropolitan limits.
-                </p>
+              {/* Showroom Address Box */}
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E5E7EB] space-y-4 shadow-xs">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-[#2E8B35] shrink-0 mt-0.5" />
+                  <div>
+                    <strong className="text-sm font-bold text-[#172033] block">{SITE_CONFIG.businessName}</strong>
+                    <span className="text-xs text-[#667085] block mt-1 leading-relaxed">
+                      {SITE_CONFIG.address}, {SITE_CONFIG.landmark}, {SITE_CONFIG.city} - {SITE_CONFIG.pincode}
+                    </span>
+                  </div>
+                </div>
+
+                <a
+                  href={SITE_CONFIG.googleMapsDirectionsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full py-3 rounded-xl bg-[#F8FAFC] hover:bg-[#F1F5F9] border border-[#E2E8F0] text-[#172033] text-xs font-bold transition-colors flex items-center justify-center gap-2"
+                >
+                  <Navigation className="w-4 h-4 text-[#2E8B35]" />
+                  <span>Open in Google Maps</span>
+                </a>
               </div>
             </div>
 

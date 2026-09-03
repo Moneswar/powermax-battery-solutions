@@ -16,11 +16,9 @@ import {
   Wrench,
   RotateCcw,
   ArrowRight,
-  Sparkles,
   Layers,
   HelpCircle,
-  Eye,
-  Maximize2,
+  Check,
 } from 'lucide-react';
 
 interface ProductDetailPageProps {
@@ -41,7 +39,6 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   const [activeTab, setActiveTab] = useState<'specs' | 'compatibility' | 'warranty' | 'faq'>('specs');
   const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number>(0);
 
-  // Gallery angles labels
   const angleLabels = ['Front Elevation', '3/4 Perspective View', 'Top Terminal Deck'];
 
   // Related products from same category or brand
@@ -50,11 +47,21 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
   ).slice(0, 3);
 
   const handleWhatsAppEnquiry = () => {
-    const text = `Hi ${SITE_CONFIG.businessName}, I would like to enquire about the best price and doorstep installation for ${product.brand} ${product.name} (${product.modelCode}, ${product.capacity}, ${product.voltage}).`;
+    const text = `Hi ${SITE_CONFIG.businessName}, I would like to enquire about the best price and doorstep installation for ${product.brand} ${product.name} (${product.modelCode || ''}, ${product.capacity}, ${product.voltage}).`;
     window.open(QUICK_CONTACT_LINKS.whatsappUrl(text), '_blank');
   };
 
   const galleryImages = product.images && product.images.length > 0 ? product.images : [product.image];
+
+  const brandLower = product.brand.toLowerCase();
+  let brandBadgeBg = 'bg-[#DC2626]/10 text-[#DC2626] border-[#DC2626]/20';
+  if (brandLower.includes('amaron')) {
+    brandBadgeBg = 'bg-[#16A34A]/10 text-[#16A34A] border-[#16A34A]/25';
+  } else if (brandLower.includes('exide')) {
+    brandBadgeBg = 'bg-[#DC2626]/10 text-[#DC2626] border-[#DC2626]/25';
+  } else if (brandLower.includes('sf sonic') || brandLower.includes('sf-sonic')) {
+    brandBadgeBg = 'bg-[#2563EB]/10 text-[#2563EB] border-[#2563EB]/25';
+  }
 
   return (
     <>
@@ -71,7 +78,7 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
         }}
       />
 
-      <div id="product-detail-page" className="min-h-screen bg-neutral-950 text-neutral-100 pt-24 pb-20">
+      <div id="product-detail-page" className="min-h-screen bg-[#F8FAFC] text-[#0F172A] pt-24 pb-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Breadcrumbs */}
@@ -84,41 +91,43 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
           />
 
           {/* MAIN PRODUCT HEADER & STAGE */}
-          <div className="py-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-start border-b border-neutral-800">
+          <div className="py-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start border-b border-[#E2E8F0]">
             
             {/* LEFT: AUTHENTIC PRODUCT PHOTOGRAPHY GALLERY STAGE */}
             <div className="lg:col-span-6 flex flex-col gap-4">
-              <div className="bg-gradient-to-b from-neutral-900 via-neutral-900/60 to-neutral-950 p-6 sm:p-8 rounded-3xl border border-neutral-800 shadow-2xl relative overflow-hidden flex flex-col items-center justify-center">
-                {/* Product Badge Pill */}
-                <div className="absolute top-6 left-6 z-20 flex items-center gap-2">
-                  <span className="px-3 py-1 rounded-full bg-red-600/20 border border-red-500/40 text-red-300 font-mono font-bold text-xs">
-                    {product.brand} OEM
+              <div className="bg-white p-6 sm:p-8 rounded-3xl border border-[#E2E8F0] shadow-xs relative overflow-hidden flex flex-col items-center justify-center">
+                {/* Brand & Model Pills */}
+                <div className="absolute top-5 left-5 z-20 flex items-center gap-2">
+                  <span className={`px-3 py-1 rounded-full border font-bold text-xs ${brandBadgeBg}`}>
+                    {product.brand} Genuine
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-neutral-800/90 border border-neutral-700 text-neutral-300 font-mono text-xs">
-                    {product.modelCode}
-                  </span>
+                  {product.modelCode && (
+                    <span className="px-3 py-1 rounded-full bg-[#F8FAFC] border border-[#E2E8F0] text-[#64748B] font-semibold text-xs">
+                      {product.modelCode}
+                    </span>
+                  )}
                 </div>
 
                 {/* Main High-Res Photo Stage */}
-                <div className="my-auto py-4 w-full flex items-center justify-center">
+                <div className="my-auto py-6 w-full flex items-center justify-center">
                   <ProductImage
                     product={product}
                     selectedImageIndex={selectedPhotoIndex}
                     aspectRatio="4/3"
-                    className="h-80 sm:h-96 w-full max-w-[480px] bg-transparent border-0"
+                    className="h-72 sm:h-96 w-full max-w-[440px] bg-transparent border-0"
                     priority={true}
                   />
                 </div>
 
-                {/* Bottom Quick Feature Highlights */}
-                <div className="w-full pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-neutral-400">
+                {/* Bottom Trust Highlight */}
+                <div className="w-full pt-4 border-t border-[#F1F5F9] flex flex-wrap items-center justify-between text-xs text-[#64748B] gap-2 font-medium">
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                    <ShieldCheck className="w-4 h-4 text-[#16A34A]" />
                     <span>100% Genuine Barcoded Unit</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Wrench className="w-4 h-4 text-amber-400" />
-                    <span>Free Doorstep Fitment</span>
+                    <Wrench className="w-4 h-4 text-[#DC2626]" />
+                    <span>Free Doorstep Fitment Included</span>
                   </div>
                 </div>
               </div>
@@ -132,26 +141,24 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                       <button
                         key={imgUrl}
                         onClick={() => setSelectedPhotoIndex(idx)}
-                        className={`p-2 rounded-xl border transition-all text-left flex items-center gap-3 cursor-pointer ${
+                        className={`p-2 rounded-2xl border transition-all text-left flex items-center gap-3 cursor-pointer ${
                           isSelected
-                            ? 'bg-neutral-900 border-red-500 ring-2 ring-red-500/30'
-                            : 'bg-neutral-950 border-neutral-800 hover:border-neutral-700 opacity-70 hover:opacity-100'
+                            ? 'bg-white border-[#DC2626] ring-2 ring-[#DC2626]/20 shadow-xs'
+                            : 'bg-white border-[#E2E8F0] hover:border-[#CBD5E1] opacity-75 hover:opacity-100'
                         }`}
                       >
-                        <div className="w-12 h-10 rounded-lg overflow-hidden bg-[#090c12] border border-neutral-800 flex items-center justify-center shrink-0 p-1">
+                        <div className="w-12 h-12 bg-[#F8FAFC] rounded-xl flex items-center justify-center p-1 shrink-0">
                           <img
                             src={imgUrl}
-                            alt={`${product.name} ${angleLabels[idx] || `View ${idx + 1}`}`}
-                            className="w-full h-full object-contain filter drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]"
+                            alt={`${product.name} angle ${idx + 1}`}
+                            className="max-h-full max-w-full object-contain"
                           />
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <span className="text-[10px] font-mono uppercase text-neutral-400 block leading-tight truncate">
-                            {angleLabels[idx] || `View ${idx + 1}`}
+                        <div className="truncate">
+                          <span className="text-xs font-bold text-[#0F172A] block truncate">
+                            {angleLabels[idx] || `Angle ${idx + 1}`}
                           </span>
-                          <span className={`text-[11px] font-bold block ${isSelected ? 'text-red-400' : 'text-neutral-300'}`}>
-                            {idx === 0 ? 'Front' : idx === 1 ? 'Perspective' : 'Top Deck'}
-                          </span>
+                          <span className="text-[10px] text-[#64748B] block">Verified OEM</span>
                         </div>
                       </button>
                     );
@@ -160,47 +167,47 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
               )}
             </div>
 
-            {/* RIGHT: SPECS OVERVIEW & FAST ORDER ACTIONS */}
+            {/* RIGHT: SPECIFICATIONS SUMMARY & CTAs */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <div className="flex items-center gap-2 text-xs font-mono uppercase text-red-400 font-bold mb-2">
-                  <span>{product.category}</span>
-                  <span>•</span>
-                  <span>{product.application}</span>
+                <div className="flex items-center gap-2 mb-2">
+                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-bold ${brandBadgeBg}`}>
+                    {product.brand}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#F0FDF4] border border-[#16A34A]/20 text-[#16A34A] text-xs font-bold">
+                    ✓ {product.warrantyMonths} Months Warranty
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-[#F1F5F9] text-[#0F172A] text-xs font-bold border border-[#E2E8F0]">
+                    In Stock
+                  </span>
                 </div>
-                <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+
+                <h1 className="text-2xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">
                   {product.name}
                 </h1>
-                <p className="text-sm text-neutral-300 mt-3 leading-relaxed">
-                  {product.fullDescription || product.shortDescription}
+                
+                <p className="text-sm text-[#64748B] mt-2 leading-relaxed font-medium">
+                  {product.shortDescription || `${product.brand} ${product.name} engineered for superior starting power, high reserve capacity, and long service life in Indian operating conditions.`}
                 </p>
               </div>
 
-              {/* Highlight Spec Cards Grid */}
-              <div className="grid grid-cols-3 gap-3 bg-neutral-900/90 p-4 rounded-2xl border border-neutral-800 text-center">
-                <div className="p-2">
-                  <span className="text-[10px] font-mono text-neutral-400 block uppercase">VOLTAGE</span>
-                  <span className="text-base sm:text-lg font-black text-white">{product.voltage}</span>
+              {/* Quick Key Specs Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-white border border-[#E2E8F0] shadow-xs">
+                <div className="text-center p-2 rounded-xl bg-[#F8FAFC]">
+                  <span className="text-[10px] uppercase font-bold text-[#64748B] block">Voltage</span>
+                  <span className="text-sm font-bold text-[#0F172A] mt-0.5 block">{product.voltage}</span>
                 </div>
-                <div className="p-2 border-x border-neutral-800">
-                  <span className="text-[10px] font-mono text-neutral-400 block uppercase">CAPACITY</span>
-                  <span className="text-base sm:text-lg font-black text-amber-400">{product.capacity}</span>
+                <div className="text-center p-2 rounded-xl bg-[#F8FAFC]">
+                  <span className="text-[10px] uppercase font-bold text-[#64748B] block">Capacity</span>
+                  <span className="text-sm font-bold text-[#DC2626] mt-0.5 block">{product.capacity}</span>
                 </div>
-                <div className="p-2">
-                  <span className="text-[10px] font-mono text-neutral-400 block uppercase">WARRANTY</span>
-                  <span className="text-base sm:text-lg font-black text-emerald-400">{product.warrantyMonths} Months</span>
+                <div className="text-center p-2 rounded-xl bg-[#F8FAFC]">
+                  <span className="text-[10px] uppercase font-bold text-[#64748B] block">Cold Cranking</span>
+                  <span className="text-sm font-bold text-[#0F172A] mt-0.5 block">{product.cca || 'High Power'}</span>
                 </div>
-              </div>
-
-              {/* Warranty Breakdown Pill */}
-              <div className="p-4 rounded-xl bg-neutral-900 border border-neutral-800 space-y-2 text-xs">
-                <div className="flex items-center justify-between font-semibold">
-                  <span className="text-white">Warranty Structure:</span>
-                  <span className="text-emerald-400 font-bold">{product.warrantyDetails}</span>
-                </div>
-                <div className="flex items-center justify-between text-neutral-400 text-[11px]">
-                  <span>Total Coverage Duration:</span>
-                  <span className="font-mono text-white">{product.warrantyMonths} Months</span>
+                <div className="text-center p-2 rounded-xl bg-[#F8FAFC]">
+                  <span className="text-[10px] uppercase font-bold text-[#64748B] block">Technology</span>
+                  <span className="text-sm font-bold text-[#0F172A] mt-0.5 block truncate">{product.technology}</span>
                 </div>
               </div>
 
@@ -209,15 +216,15 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <button
                     onClick={() => onOpenEnquiry(product)}
-                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-sm shadow-xl shadow-red-600/30 transition-all cursor-pointer hover:scale-[1.02]"
+                    className="w-full py-3.5 px-5 rounded-xl bg-[#DC2626] hover:bg-[#B91C1C] text-white font-bold text-sm shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    <span>Instant Price Enquiry</span>
+                    <span>Enquire Best Price</span>
                   </button>
 
                   <button
                     onClick={handleWhatsAppEnquiry}
-                    className="flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-md transition-colors cursor-pointer"
+                    className="w-full py-3.5 px-5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-sm shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98]"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>Chat on WhatsApp</span>
@@ -226,290 +233,259 @@ export const ProductDetailPage: React.FC<ProductDetailPageProps> = ({
 
                 <a
                   href={QUICK_CONTACT_LINKS.callUrl}
-                  className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-neutral-900 hover:bg-neutral-800 text-neutral-200 border border-neutral-700 text-xs font-bold transition-colors"
+                  className="w-full py-3.5 px-5 rounded-xl bg-white hover:bg-[#F8FAFC] text-[#0F172A] border border-[#E2E8F0] font-bold text-sm shadow-xs transition-colors flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  <Phone className="w-4 h-4 text-red-500" />
-                  <span>Call Hotline for Immediate 30-Min Fitment: {SITE_CONFIG.phoneDisplay}</span>
+                  <Phone className="w-4 h-4 text-[#DC2626]" />
+                  <span>Call Us: {SITE_CONFIG.phoneDisplay}</span>
                 </a>
               </div>
 
-              {/* Included Services Checklist */}
-              <div className="pt-2 border-t border-neutral-800 space-y-2">
-                <span className="text-[11px] font-mono uppercase text-neutral-400 font-bold block">
-                  Included with this battery:
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-300">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Free Doorstep Delivery & Fitting</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Electronic Alternator Voltage Check</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>OBD-II Computer Memory Preservation</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                    <span>Maximum Old Battery Scrap Rebate</span>
-                  </div>
+              {/* Delivery & Exchange Highlights */}
+              <div className="p-4 rounded-2xl bg-white border border-[#E2E8F0] space-y-2.5 shadow-xs">
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A]">
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0" />
+                  <span>Free doorstep installation with memory saver protection</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A]">
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0" />
+                  <span>Fair exchange scrap rebate on your old battery</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-[#0F172A]">
+                  <CheckCircle2 className="w-4 h-4 text-[#16A34A] shrink-0" />
+                  <span>Paperless manufacturer warranty registration & instant invoice</span>
                 </div>
               </div>
 
             </div>
+
           </div>
 
-          {/* TABBED SPECIFICATIONS & COMPATIBILITY DEEP DIVE */}
-          <div className="py-12 border-b border-neutral-800 space-y-8">
-            {/* Tab navigation buttons */}
-            <div className="flex items-center gap-2 border-b border-neutral-800 pb-3 overflow-x-auto custom-scrollbar">
-              <button
-                onClick={() => setActiveTab('specs')}
-                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap cursor-pointer ${
-                  activeTab === 'specs'
-                    ? 'bg-red-600 text-white shadow-md'
-                    : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
-                }`}
-              >
-                Technical Specifications
-              </button>
-
-              <button
-                onClick={() => setActiveTab('compatibility')}
-                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap cursor-pointer ${
-                  activeTab === 'compatibility'
-                    ? 'bg-red-600 text-white shadow-md'
-                    : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
-                }`}
-              >
-                Compatible Vehicles & Applications
-              </button>
-
-              <button
-                onClick={() => setActiveTab('warranty')}
-                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap cursor-pointer ${
-                  activeTab === 'warranty'
-                    ? 'bg-red-600 text-white shadow-md'
-                    : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
-                }`}
-              >
-                Warranty & Registration
-              </button>
-
-              <button
-                onClick={() => setActiveTab('faq')}
-                className={`px-5 py-2.5 rounded-xl text-xs font-bold transition-colors whitespace-nowrap cursor-pointer ${
-                  activeTab === 'faq'
-                    ? 'bg-red-600 text-white shadow-md'
-                    : 'text-neutral-400 hover:text-white hover:bg-neutral-900'
-                }`}
-              >
-                Maintenance & Features
-              </button>
+          {/* TABS SECTION: SPECIFICATIONS | COMPATIBILITY | WARRANTY | FAQ */}
+          <div className="py-12 border-b border-[#E2E8F0]">
+            <div className="flex items-center gap-2 border-b border-[#E2E8F0] pb-3 overflow-x-auto custom-scrollbar mb-8">
+              {[
+                { id: 'specs', label: 'Detailed Specifications', icon: Layers },
+                { id: 'compatibility', label: 'Vehicle / Application Fitment', icon: Car },
+                { id: 'warranty', label: 'Warranty & Support', icon: ShieldCheck },
+                { id: 'faq', label: 'Frequently Asked Questions', icon: HelpCircle },
+              ].map((tab) => {
+                const IconComp = tab.icon;
+                const isSelected = activeTab === tab.id;
+                return (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all cursor-pointer ${
+                      isSelected
+                        ? 'bg-[#DC2626] text-white shadow-sm shadow-[#DC2626]/25'
+                        : 'bg-white text-[#64748B] hover:text-[#0F172A] hover:bg-[#F1F5F9] border border-[#E2E8F0]'
+                    }`}
+                  >
+                    <IconComp className="w-4 h-4" />
+                    <span>{tab.label}</span>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* TAB CONTENT: SPECS */}
+            {/* TAB 1: DETAILED SPECIFICATIONS TABLE */}
             {activeTab === 'specs' && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 space-y-4">
-                  <h3 className="text-sm font-mono uppercase text-red-400 font-bold tracking-wider">
-                    Electrical & Performance
-                  </h3>
-                  <dl className="divide-y divide-neutral-800 text-xs">
-                    <div className="py-2.5 flex justify-between">
-                      <dt className="text-neutral-400">Nominal Voltage</dt>
-                      <dd className="font-bold text-white">{product.voltage}</dd>
-                    </div>
-                    <div className="py-2.5 flex justify-between">
-                      <dt className="text-neutral-400">Rated Capacity</dt>
-                      <dd className="font-bold text-amber-400">{product.capacity}</dd>
-                    </div>
-                    {product.cca && (
-                      <div className="py-2.5 flex justify-between">
-                        <dt className="text-neutral-400">Cold Cranking Amps (CCA)</dt>
-                        <dd className="font-bold text-white">{product.cca}</dd>
-                      </div>
-                    )}
-                    <div className="py-2.5 flex justify-between">
-                      <dt className="text-neutral-400">Battery Technology</dt>
-                      <dd className="font-bold text-white">{product.technology}</dd>
-                    </div>
-                    <div className="py-2.5 flex justify-between">
-                      <dt className="text-neutral-400">OEM Model Code</dt>
-                      <dd className="font-mono text-neutral-300">{product.modelCode}</dd>
-                    </div>
-                  </dl>
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="lg:col-span-8 bg-white rounded-2xl border border-[#E2E8F0] shadow-xs overflow-hidden">
+                  <table className="w-full text-left text-xs sm:text-sm">
+                    <tbody className="divide-y divide-[#E2E8F0]">
+                      <tr className="bg-[#F8FAFC]">
+                        <td className="p-3.5 font-bold text-[#64748B] w-1/3">Brand / Manufacturer</td>
+                        <td className="p-3.5 font-bold text-[#0F172A]">{product.brand}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3.5 font-bold text-[#64748B]">Model / Part Number</td>
+                        <td className="p-3.5 font-bold text-[#0F172A]">{product.modelCode || product.name}</td>
+                      </tr>
+                      <tr className="bg-[#F8FAFC]">
+                        <td className="p-3.5 font-bold text-[#64748B]">Nominal Voltage</td>
+                        <td className="p-3.5 font-bold text-[#0F172A]">{product.voltage}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3.5 font-bold text-[#64748B]">Capacity (Ah)</td>
+                        <td className="p-3.5 font-bold text-[#DC2626]">{product.capacity}</td>
+                      </tr>
+                      <tr className="bg-[#F8FAFC]">
+                        <td className="p-3.5 font-bold text-[#64748B]">Cold Cranking Amps (CCA)</td>
+                        <td className="p-3.5 font-bold text-[#0F172A]">{product.cca || 'N/A (Deep Cycle / Inverter)'}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3.5 font-bold text-[#64748B]">Battery Technology</td>
+                        <td className="p-3.5 font-bold text-[#0F172A]">{product.technology}</td>
+                      </tr>
+                      <tr className="bg-[#F8FAFC]">
+                        <td className="p-3.5 font-bold text-[#64748B]">Dimensions (L x W x H)</td>
+                        <td className="p-3.5 font-mono text-[#0F172A]">{product.dimensions || 'Standard OEM Dimensions'}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3.5 font-bold text-[#64748B]">Terminal Polarity Layout</td>
+                        <td className="p-3.5 font-mono text-[#0F172A]">{product.terminalLayout || 'Left / Right Polarity Standard'}</td>
+                      </tr>
+                      <tr className="bg-[#F8FAFC]">
+                        <td className="p-3.5 font-bold text-[#64748B]">Filled Battery Weight</td>
+                        <td className="p-3.5 font-bold text-[#0F172A]">{product.weight || 'Standard Weight'}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-3.5 font-bold text-[#64748B]">Warranty Coverage</td>
+                        <td className="p-3.5 font-bold text-[#16A34A]">{product.warrantyMonths} Months ({product.warrantyDetails})</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
-                <div className="bg-neutral-900 p-6 rounded-2xl border border-neutral-800 space-y-4">
-                  <h3 className="text-sm font-mono uppercase text-red-400 font-bold tracking-wider">
-                    Physical & Mechanical
+                {/* Features Highlights Sidebar */}
+                <div className="lg:col-span-4 bg-white p-6 rounded-2xl border border-[#E2E8F0] shadow-xs space-y-4">
+                  <h3 className="text-base font-bold text-[#0F172A] border-b border-[#F1F5F9] pb-3">
+                    Why Choose This Battery?
                   </h3>
-                  <dl className="divide-y divide-neutral-800 text-xs">
-                    <div className="py-2.5 flex justify-between">
-                      <dt className="text-neutral-400">Dimensions (L x W x H)</dt>
-                      <dd className="font-mono text-white">{product.dimensions}</dd>
-                    </div>
-                    <div className="py-2.5 flex justify-between">
-                      <dt className="text-neutral-400">Approximate Weight</dt>
-                      <dd className="font-mono text-white">{product.weight}</dd>
-                    </div>
-                    {product.terminalLayout && (
-                      <div className="py-2.5 flex justify-between">
-                        <dt className="text-neutral-400">Terminal Configuration</dt>
-                        <dd className="text-right text-neutral-300">{product.terminalLayout}</dd>
+                  <div className="space-y-3">
+                    {(product.features || [
+                      'High cranking power for immediate engine start',
+                      'Advanced corrosion-resistant grid alloy',
+                      'Factory charged and ready to fit',
+                      'Robust vibration-resistant internal construction',
+                    ]).map((feat, idx) => (
+                      <div key={idx} className="flex items-start gap-2.5 text-xs text-[#475569]">
+                        <Check className="w-4 h-4 text-[#16A34A] shrink-0 mt-0.5" />
+                        <span>{feat}</span>
                       </div>
-                    )}
-                    {product.casingType && (
-                      <div className="py-2.5 flex justify-between">
-                        <dt className="text-neutral-400">Casing Material</dt>
-                        <dd className="text-right text-neutral-300">{product.casingType}</dd>
-                      </div>
-                    )}
-                  </dl>
+                    ))}
+                  </div>
                 </div>
               </div>
             )}
 
-            {/* TAB CONTENT: COMPATIBILITY */}
+            {/* TAB 2: COMPATIBILITY FITMENT */}
             {activeTab === 'compatibility' && (
-              <div className="bg-neutral-900 p-8 rounded-2xl border border-neutral-800 space-y-6">
+              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E2E8F0] shadow-xs space-y-6">
                 <div>
-                  <h3 className="text-base font-bold text-white">Recommended Vehicle & Application Fitments</h3>
-                  <p className="text-xs text-neutral-400 mt-1">
-                    Below is an indicative list of vehicles and setups verified for correct battery tray dimensions, polarity terminals, and charging alternator rates.
+                  <h3 className="text-lg font-bold text-[#0F172A]">
+                    Compatible Vehicles & Applications
+                  </h3>
+                  <p className="text-xs text-[#64748B] mt-1 font-medium">
+                    Verified OEM fitment list for {product.brand} {product.name}. If your vehicle is not listed, our technicians will confirm compatibility.
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-                  {product.suitableVehicles && product.suitableVehicles.length > 0 ? (
-                    product.suitableVehicles.map((vehicle, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center gap-3 p-3 rounded-xl bg-neutral-950 border border-neutral-800 text-xs text-neutral-200"
-                      >
-                        <Car className="w-4 h-4 text-red-500 shrink-0" />
-                        <span>{vehicle}</span>
-                      </div>
-                    ))
-                  ) : (
-                    <p className="text-xs text-neutral-400">Universal fitment for standard {product.voltage} systems.</p>
-                  )}
-                </div>
-
-                <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2">
-                    <HelpCircle className="w-4 h-4 text-amber-400" />
-                    <span className="text-neutral-300">Don't see your specific car or equipment listed?</span>
-                  </div>
-                  <button
-                    onClick={() => onOpenEnquiry(product)}
-                    className="text-red-400 font-bold hover:underline cursor-pointer"
-                  >
-                    Check Fitment with Technician
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* TAB CONTENT: WARRANTY */}
-            {activeTab === 'warranty' && (
-              <div className="bg-neutral-900 p-8 rounded-2xl border border-neutral-800 space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-800 pb-6">
-                  <div>
-                    <h3 className="text-lg font-bold text-white">Official Brand Warranty: {product.warrantyMonths} Months</h3>
-                    <p className="text-xs text-emerald-400 font-mono mt-1">{product.warrantyDetails}</p>
-                  </div>
-                  <div className="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span>Nationwide Cashless Warranty Support</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-                  <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2">
-                    <div className="w-8 h-8 rounded-lg bg-red-600/20 text-red-400 flex items-center justify-center font-bold font-mono">
-                      01
-                    </div>
-                    <h4 className="font-bold text-white">Paperless Digital Registration</h4>
-                    <p className="text-neutral-400 leading-relaxed">
-                      We register your serial number barcode directly with the manufacturer on installation day.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2">
-                    <div className="w-8 h-8 rounded-lg bg-red-600/20 text-red-400 flex items-center justify-center font-bold font-mono">
-                      02
-                    </div>
-                    <h4 className="font-bold text-white">Instant Replacement Window</h4>
-                    <p className="text-neutral-400 leading-relaxed">
-                      100% free unit exchange during the primary guarantee period with zero hassle.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-neutral-950 border border-neutral-800 space-y-2">
-                    <div className="w-8 h-8 rounded-lg bg-red-600/20 text-red-400 flex items-center justify-center font-bold font-mono">
-                      03
-                    </div>
-                    <h4 className="font-bold text-white">Pro-Rata Settlement Discount</h4>
-                    <p className="text-neutral-400 leading-relaxed">
-                      Substantial discount on a brand-new battery if replacement occurs in the pro-rata period.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* TAB CONTENT: FEATURES & MAINTENANCE */}
-            {activeTab === 'faq' && (
-              <div className="bg-neutral-900 p-8 rounded-2xl border border-neutral-800 space-y-6">
-                <div>
-                  <h3 className="text-base font-bold text-white">Key Engineering Highlights & Maintenance Guidelines</h3>
-                  <p className="text-xs text-neutral-400 mt-1">
-                    Manufacturer designed technology benefits for durability and performance in Indian conditions.
-                  </p>
-                </div>
-
-                <div className="space-y-3">
-                  {product.features.map((feat, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-3 p-3.5 rounded-xl bg-neutral-950 border border-neutral-800 text-xs text-neutral-300"
+                <div className="flex flex-wrap gap-2.5">
+                  {(product.suitableVehicles && product.suitableVehicles.length > 0
+                    ? product.suitableVehicles
+                    : ['Compatible with standard vehicle models in this battery class', 'Inverter home power systems', 'Solar battery banks']
+                  ).map((v, i) => (
+                    <span
+                      key={i}
+                      className="px-3.5 py-1.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] text-xs font-semibold text-[#0F172A] flex items-center gap-1.5"
                     >
-                      <Sparkles className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
-                      <span>{feat}</span>
-                    </div>
+                      <Car className="w-3.5 h-3.5 text-[#DC2626]" />
+                      <span>{v}</span>
+                    </span>
                   ))}
                 </div>
               </div>
             )}
 
+            {/* TAB 3: WARRANTY & SUPPORT */}
+            {activeTab === 'warranty' && (
+              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E2E8F0] shadow-xs space-y-6">
+                <div>
+                  <h3 className="text-lg font-bold text-[#0F172A]">
+                    Official Manufacturer Warranty Policy
+                  </h3>
+                  <p className="text-xs text-[#64748B] mt-1 font-medium">
+                    This unit comes with {product.warrantyMonths} Months authorized manufacturer warranty ({product.warrantyDetails}).
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <ShieldCheck className="w-5 h-5 text-[#16A34A] mb-2" />
+                    <h4 className="text-xs font-bold text-[#0F172A]">Paperless Warranty</h4>
+                    <p className="text-[11px] text-[#64748B] mt-1">
+                      Digital serial number registration on official brand portal upon purchase.
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <RotateCcw className="w-5 h-5 text-[#DC2626] mb-2" />
+                    <h4 className="text-xs font-bold text-[#0F172A]">Free Pro-Rata Support</h4>
+                    <p className="text-[11px] text-[#64748B] mt-1">
+                      Full free replacement period followed by official pro-rata discount schedule.
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <Wrench className="w-5 h-5 text-[#DC2626] mb-2" />
+                    <h4 className="text-xs font-bold text-[#0F172A]">Doorstep Claim Service</h4>
+                    <p className="text-[11px] text-[#64748B] mt-1">
+                      Our technician visits your location to test and process replacement units.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* TAB 4: FAQ */}
+            {activeTab === 'faq' && (
+              <div className="bg-white p-6 sm:p-8 rounded-2xl border border-[#E2E8F0] shadow-xs space-y-4">
+                <h3 className="text-lg font-bold text-[#0F172A] mb-4">
+                  Frequently Asked Questions
+                </h3>
+                <div className="space-y-3">
+                  <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <h4 className="text-xs font-bold text-[#0F172A]">Is this battery 100% genuine?</h4>
+                    <p className="text-xs text-[#64748B] mt-1">
+                      Yes. PowerMax Battery Solutions is an authorized distributor for Amaron, Exide, and SF Sonic. Every unit includes factory barcoding and warranty verification.
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <h4 className="text-xs font-bold text-[#0F172A]">How fast can you install it at my doorstep?</h4>
+                    <p className="text-xs text-[#64748B] mt-1">
+                      Our technicians typically arrive within 30 to 60 minutes across Bangalore with full memory-saver equipment.
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0]">
+                    <h4 className="text-xs font-bold text-[#0F172A]">Do you provide scrap discount for my old battery?</h4>
+                    <p className="text-xs text-[#64748B] mt-1">
+                      Yes, we provide fair, transparent market value rebates on your spent battery during installation.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* SIMILAR / ALTERNATIVE RECOMMENDATIONS */}
+          {/* RELATED RECOMMENDED BATTERIES */}
           {relatedProducts.length > 0 && (
-            <div className="pt-12 space-y-6">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-bold text-white">Explore Alternative Recommendations</h3>
+            <div className="pt-12">
+              <div className="flex items-center justify-between mb-8">
+                <div>
+                  <h2 className="text-2xl font-extrabold text-[#0F172A] tracking-tight">
+                    Related Battery Recommendations
+                  </h2>
+                  <p className="text-xs sm:text-sm text-[#64748B] mt-1 font-medium">
+                    Similar high-performance batteries matching your power requirements.
+                  </p>
+                </div>
                 <button
                   onClick={onNavigateProducts}
-                  className="text-xs text-red-400 font-bold hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-xs font-bold text-[#DC2626] hover:text-[#B91C1C] flex items-center gap-1 cursor-pointer"
                 >
-                  <span>View All in {product.category}</span>
-                  <ArrowRight className="w-3 h-3" />
+                  <span>View All Batteries</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                {relatedProducts.map((relProduct) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {relatedProducts.map((p) => (
                   <ProductCard
-                    key={relProduct.id}
-                    product={relProduct}
+                    key={p.id}
+                    product={p}
                     onSelectProduct={onSelectProduct}
                     onOpenEnquiry={onOpenEnquiry}
-                    showCompare={false}
+                    showCompare={true}
                   />
                 ))}
               </div>
